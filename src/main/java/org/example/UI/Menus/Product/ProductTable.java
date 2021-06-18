@@ -1,13 +1,10 @@
-package org.example.UI.Menus.Category;
+package org.example.UI.Menus.Product;
 
 import org.example.Models.Product;
 import org.example.UI.Menus.CustomColumnModel;
 import org.example.UI.Menus.CustomDataModel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.JTableHeader;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

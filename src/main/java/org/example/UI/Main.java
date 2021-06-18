@@ -24,7 +24,7 @@ public class Main {
 			@Override
 			public void run() {
 				JFrame.setDefaultLookAndFeelDecorated(true);
-				new UserInterface();
+				new MainWindow();
 			}
 		});
 	}

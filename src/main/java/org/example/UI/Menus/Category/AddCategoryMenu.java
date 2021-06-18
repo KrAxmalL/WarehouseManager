@@ -1,6 +1,6 @@
 package org.example.UI.Menus.Category;
 
-import org.example.UI.UserInterface;
+import org.example.UI.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,7 +14,8 @@ public class AddCategoryMenu extends JFrame {
     private JLabel categoryNameLabel;
     private JTextField categoryDescriptionField;
     private JLabel categoryDescriptionLabel;
-    private JButton button;
+    private JButton addButton;
+    private JButton cancelButton;
 
     public AddCategoryMenu() {
         super("New Category");
@@ -23,7 +24,7 @@ public class AddCategoryMenu extends JFrame {
 
         this.getContentPane().setLayout(new FlowLayout());
         this.setSize(300,300);
-        //this.setBounds(dim.width / 2 - frame.getWidth() / 2, dim.height / 2 - frame.getHeight() / 2, frame.getWidth(), frame.getHeight());
+        this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
         this.setVisible(true);
     }
@@ -37,9 +38,12 @@ public class AddCategoryMenu extends JFrame {
         categoryDescriptionField.setSize(200, 50);
         categoryDescriptionLabel = new JLabel("New category description");
 
-        button = new JButton("Add");
-        button.setSize(200, 50);
-        //button.addActionListener(new UserInterface.NewCategoryListener.categoryAddButtonListener());
+        addButton = new JButton("Add");
+        addButton.setSize(200, 50);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setSize(200, 50);
+        //button.addActionListener(new MainWindow.NewCategoryListener.categoryAddButtonListener());
     }
 
     private void initPanel() {
@@ -50,6 +54,63 @@ public class AddCategoryMenu extends JFrame {
         panel.add(categoryNameField);
         panel.add(categoryDescriptionLabel);
         panel.add(categoryDescriptionField);
-        panel.add(button);
+        panel.add(addButton);
+        panel.add(cancelButton);
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+
+    public JTextField getCategoryNameField() {
+        return categoryNameField;
+    }
+
+    public void setCategoryNameField(JTextField categoryNameField) {
+        this.categoryNameField = categoryNameField;
+    }
+
+    public JLabel getCategoryNameLabel() {
+        return categoryNameLabel;
+    }
+
+    public void setCategoryNameLabel(JLabel categoryNameLabel) {
+        this.categoryNameLabel = categoryNameLabel;
+    }
+
+    public JTextField getCategoryDescriptionField() {
+        return categoryDescriptionField;
+    }
+
+    public void setCategoryDescriptionField(JTextField categoryDescriptionField) {
+        this.categoryDescriptionField = categoryDescriptionField;
+    }
+
+    public JLabel getCategoryDescriptionLabel() {
+        return categoryDescriptionLabel;
+    }
+
+    public void setCategoryDescriptionLabel(JLabel categoryDescriptionLabel) {
+        this.categoryDescriptionLabel = categoryDescriptionLabel;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(JButton addButton) {
+        this.addButton = addButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(JButton cancelButton) {
+        this.cancelButton = cancelButton;
     }
 }

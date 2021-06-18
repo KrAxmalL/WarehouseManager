@@ -1,13 +1,14 @@
 package org.example.UI.Menus.Product;
 
-import org.example.UI.Menus.Category.ProductTable;
-import org.example.UI.UserInterface;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ProductMenu extends JMenu {
+
+    private JMenuItem newProduct;
+    private JMenuItem editProduct;
+    private JMenuItem deleteProduct;
 
     public ProductMenu() {
         super("Product");
@@ -16,47 +17,57 @@ public class ProductMenu extends JMenu {
 
     private void init()
     {
-        //JMenu itemMenu = new JMenu("Item");
+        newProduct = new JMenuItem("New product");
+        editProduct = new JMenuItem("Change product");
+        deleteProduct = new JMenuItem("Delete product");
 
-        JMenuItem newItem  = new JMenuItem("New product");
-        JMenuItem changeItem  = new JMenuItem("Change product");
-        JMenuItem deleteItem = new JMenuItem("Delete product");
-
-        newItem.addActionListener(new ActionListener() {
+        newProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddProductMenu();
             }
         });
 
-        changeItem.addActionListener(new ActionListener() {
-            private JFrame fr;
-            private ProductTable table;
-
+        editProduct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fr = new JFrame();
-                //JPanel panel = new JPanel();
-                //table = new ProductTable();
-                JScrollPane pane = new JScrollPane();
-                JTable t = new JTable();
-                pane.setViewportView(t);
-
-                //pane.add(new AddProductMenu());
-
-                //panel.add(pane);
-
-                fr.add(t);
-
-                fr.setVisible(true);
-                //pane.setV
-
+                new EditProductMenu();
             }
         });
-        //deleteItem.addActionListener(new UserInterface.DeleteItemsListener());
 
-        this.add(newItem);
-        this.add(changeItem);
-        this.add(deleteItem);
+        deleteProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DeleteProductMenu();
+            }
+        });
+
+        this.add(newProduct);
+        this.add(editProduct);
+        this.add(deleteProduct);
+    }
+
+    public JMenuItem getNewProduct() {
+        return newProduct;
+    }
+
+    public void setNewProduct(JMenuItem newProduct) {
+        this.newProduct = newProduct;
+    }
+
+    public JMenuItem getEditProduct() {
+        return editProduct;
+    }
+
+    public void setEditProduct(JMenuItem editProduct) {
+        this.editProduct = editProduct;
+    }
+
+    public JMenuItem getDeleteProduct() {
+        return deleteProduct;
+    }
+
+    public void setDeleteProduct(JMenuItem deleteProduct) {
+        this.deleteProduct = deleteProduct;
     }
 }
