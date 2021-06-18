@@ -1,9 +1,12 @@
 package org.example.Models;
 
+import java.util.Objects;
+
 public class Product {
 
     private int id;
     private String name;
+    private String description;
     private String producer;
     private int categoryId;
     private int amount;
@@ -11,8 +14,9 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, String producer, int categoryId, int amount, int price) {
+    public Product(String name, String description, String producer, int categoryId, int amount, int price) {
         this.name = name;
+        this.description = description;
         this.producer = producer;
         this.categoryId = categoryId;
         this.amount = amount;
@@ -33,6 +37,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getProducer() {
@@ -72,6 +84,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", producer='" + producer + '\'' +
                 ", categoryId=" + categoryId +
                 ", amount=" + amount +
@@ -83,6 +96,7 @@ public class Product {
         return "\"product\"{" +
                 "\"id\": " + id + ',' +
                 "\"name\": " + '"' + name + '"' + ',' +
+                "\"description\": " + '"' + description + '"' + ',' +
                 "\"producer\": " + '"' + producer + '"' +  ',' +
                 "\"categoryId\": " + categoryId + ',' +
                 "\"amount\": " + amount + ',' +
@@ -92,23 +106,20 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                categoryId == product.categoryId &&
+                amount == product.amount &&
+                price == product.price &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(producer, product.producer);
+    }
 
-        if(this == o) {
-            return true;
-        }
-
-        if(o instanceof Product) {
-            Product other = (Product) o;
-            return  this.getId() == other.getId() &&
-                    this.getName().equals(other.getName()) &&
-                    this.getProducer().equals(other.getProducer()) &&
-                    this.getPrice() == other.getPrice() &&
-                    this.getAmount() == other.getAmount();
-        }
-
-        return false;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, producer, categoryId, amount, price);
     }
 }

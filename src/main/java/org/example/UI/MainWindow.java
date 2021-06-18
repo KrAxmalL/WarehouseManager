@@ -1,5 +1,7 @@
 package org.example.UI;
 
+import org.example.Controllers.Category.MainCategoryController;
+import org.example.Controllers.Product.MainProductController;
 import org.example.Databases.CrudProductRepository;
 import org.example.Models.Product;
 import org.example.UI.Menus.Category.CategoryMenu;
@@ -11,12 +13,8 @@ import org.example.UI.Menus.Stock.StockMenu;
 import org.example.Utils.Config;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class MainWindow extends JFrame

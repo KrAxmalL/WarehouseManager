@@ -24,7 +24,7 @@ public class DeleteProductMenu extends JFrame {
         this.setSize(400,500);
         this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void initComponents() {
@@ -35,7 +35,7 @@ public class DeleteProductMenu extends JFrame {
         deleteButton = new JButton("Delete");
         deleteButton.setSize(200, 50);
 
-        cancelButton = new JButton("Delete");
+        cancelButton = new JButton("Cancel");
         cancelButton.setSize(200, 50);
         //button.addActionListener(new MainWindow.DeleteItemsListener.ItemDeleteActionListener());
     }

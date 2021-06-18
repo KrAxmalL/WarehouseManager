@@ -57,6 +57,7 @@ public class MyHttpServer {
         CrudProductRepository products = new CrudProductRepository();
         for(int i = 1; i <= 10; i++) {
             String name = "product number " + i;
+            String description = "description " + i;
             String producer = "producer number " + i;
             int categoryId = i % 5;
             if(categoryId == 0) {
@@ -64,7 +65,7 @@ public class MyHttpServer {
             }
             int price = 100 * i;
             int amount = 10 * i;
-            products.addProduct(new Product(name, producer, categoryId, price, amount));
+            products.addProduct(new Product(name, description, producer, categoryId, price, amount));
         }
     }
 }

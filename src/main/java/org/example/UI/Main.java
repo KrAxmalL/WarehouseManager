@@ -1,5 +1,6 @@
 package org.example.UI;
 
+import org.example.Controllers.Main.MainController;
 import org.example.Databases.CrudCategoryRepository;
 import org.example.Databases.CrudProductRepository;
 import org.example.Databases.CrudUserRepository;
@@ -24,7 +25,8 @@ public class Main {
 			@Override
 			public void run() {
 				JFrame.setDefaultLookAndFeelDecorated(true);
-				new MainWindow();
+				new MainController();
+				//new MainWindow();
 			}
 		});
 	}
@@ -49,6 +51,7 @@ public class Main {
 		CrudProductRepository products = new CrudProductRepository();
 		for(int i = 1; i <= 10; i++) {
 			String name = "product number " + i;
+			String description = "description " + i;
 			String producer = "producer number " + i;
 			int categoryId = i % 5;
 			if(categoryId == 0) {
@@ -56,7 +59,7 @@ public class Main {
 			}
 			int price = 100 * i;
 			int amount = 10 * i;
-			products.addProduct(new Product(name, producer, categoryId, price, amount));
+			products.addProduct(new Product(name, description, producer, categoryId, price, amount));
 		}
 	}
 

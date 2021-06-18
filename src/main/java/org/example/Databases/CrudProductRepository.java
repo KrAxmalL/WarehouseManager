@@ -28,10 +28,11 @@ public class CrudProductRepository {
             try {
                 PreparedStatement query = dbConnection.getConnection().prepareStatement(QueryBuilder.INSERTING_INTO_PRODUCT);
                 query.setString(1, product.getName());
-                query.setString(2, product.getProducer());
-                query.setInt(3, product.getCategoryId());
-                query.setInt(4, product.getAmount());
-                query.setInt(5, product.getPrice());
+                query.setString(2, product.getDescription());
+                query.setString(3, product.getProducer());
+                query.setInt(4, product.getCategoryId());
+                query.setInt(5, product.getAmount());
+                query.setInt(6, product.getPrice());
                 int res = query.executeUpdate();
                 query.close();
                 return true;
@@ -79,11 +80,12 @@ public class CrudProductRepository {
                     query = dbConnection.getConnection().prepareStatement(QueryBuilder.UPDATING_PRODUCT);
 
                     query.setString(1, product.getName());
-                    query.setString(2, product.getProducer());
-                    query.setInt(3, product.getCategoryId());
-                    query.setInt(4, product.getAmount());
-                    query.setInt(5, product.getPrice());
-                    query.setInt(6, product.getId());
+                    query.setString(2, product.getDescription());
+                    query.setString(3, product.getProducer());
+                    query.setInt(4, product.getCategoryId());
+                    query.setInt(5, product.getAmount());
+                    query.setInt(6, product.getPrice());
+                    query.setInt(7, product.getId());
                     boolean res = (query.executeUpdate() == 1);
                     query.close();
                     return res;
@@ -180,10 +182,11 @@ public class CrudProductRepository {
         try {
             product.setId(resultSet.getInt(1));
             product.setName(resultSet.getString(2));
-            product.setProducer(resultSet.getString(3));
-            product.setCategoryId(resultSet.getInt(4));
-            product.setAmount(resultSet.getInt(5));
-            product.setPrice(resultSet.getInt(6));
+            product.setDescription(resultSet.getString(3));
+            product.setProducer(resultSet.getString(4));
+            product.setCategoryId(resultSet.getInt(5));
+            product.setAmount(resultSet.getInt(6));
+            product.setPrice(resultSet.getInt(7));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

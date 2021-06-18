@@ -33,9 +33,11 @@ public class UserService {
     }
 
     public static boolean validateUser(User user) {
-        User dbUser = users.getUserByLogin(user.getLogin());
-        if(dbUser != null) {
-            return user.getPassword().equals(dbUser.getPassword());
+        if(user != null) {
+            User dbUser = users.getUserByLogin(user.getLogin());
+            if (dbUser != null) {
+                return user.getPassword().equals(dbUser.getPassword());
+            }
         }
         return false;
     }

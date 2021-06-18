@@ -33,7 +33,7 @@ public class AddProductMenu extends JFrame {
         this.setSize(400,500);
         this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void initComponents() {

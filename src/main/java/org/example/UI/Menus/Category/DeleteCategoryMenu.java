@@ -24,7 +24,7 @@ public class DeleteCategoryMenu extends JFrame {
         this.setSize(400,500);
         this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void initComponents() {
@@ -48,5 +48,45 @@ public class DeleteCategoryMenu extends JFrame {
         panel.add(categoriesField);
         panel.add(deleteButton);
         panel.add(cancelButton);
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+
+    public JComboBox<Category> getCategoriesField() {
+        return categoriesField;
+    }
+
+    public void setCategoriesField(JComboBox<Category> categoriesField) {
+        this.categoriesField = categoriesField;
+    }
+
+    public JLabel getCategoriesLabel() {
+        return categoriesLabel;
+    }
+
+    public void setCategoriesLabel(JLabel categoriesLabel) {
+        this.categoriesLabel = categoriesLabel;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public void setDeleteButton(JButton deleteButton) {
+        this.deleteButton = deleteButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(JButton cancelButton) {
+        this.cancelButton = cancelButton;
     }
 }

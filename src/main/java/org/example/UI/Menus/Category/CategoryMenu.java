@@ -6,40 +6,46 @@ import java.awt.event.ActionListener;
 
 public class CategoryMenu extends JMenu {
 
+    private JMenuItem newCategory;
+    private JMenuItem editCategory;
+    private JMenuItem deleteCategory;
+
     public CategoryMenu() {
         super("Category");
         init();
     }
 
-    private void init()
-    {
-        JMenuItem newCategory  = new JMenuItem("New Category");
-        JMenuItem changeCategory  = new JMenuItem("Change Category");
-        JMenuItem deleteCategory = new JMenuItem("Delete Category");
-
-        newCategory.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddCategoryMenu();
-            }
-        });
-
-        changeCategory.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EditCategoryMenu();
-            }
-        });
-
-        deleteCategory.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteCategoryMenu();
-            }
-        });
+    private void init() {
+        newCategory  = new JMenuItem("New Category");
+        editCategory  = new JMenuItem("Change Category");
+        deleteCategory = new JMenuItem("Delete Category");
 
         this.add(newCategory);
-        this.add(changeCategory);
+        this.add(editCategory);
         this.add(deleteCategory);
+    }
+
+    public JMenuItem getNewCategory() {
+        return newCategory;
+    }
+
+    public void setNewCategory(JMenuItem newCategory) {
+        this.newCategory = newCategory;
+    }
+
+    public JMenuItem getEditCategory() {
+        return editCategory;
+    }
+
+    public void setEditCategory(JMenuItem editCategory) {
+        this.editCategory = editCategory;
+    }
+
+    public JMenuItem getDeleteCategory() {
+        return deleteCategory;
+    }
+
+    public void setDeleteCategory(JMenuItem deleteCategory) {
+        this.deleteCategory = deleteCategory;
     }
 }

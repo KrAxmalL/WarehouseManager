@@ -15,32 +15,10 @@ public class ProductMenu extends JMenu {
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         newProduct = new JMenuItem("New product");
         editProduct = new JMenuItem("Change product");
         deleteProduct = new JMenuItem("Delete product");
-
-        newProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddProductMenu();
-            }
-        });
-
-        editProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EditProductMenu();
-            }
-        });
-
-        deleteProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteProductMenu();
-            }
-        });
 
         this.add(newProduct);
         this.add(editProduct);

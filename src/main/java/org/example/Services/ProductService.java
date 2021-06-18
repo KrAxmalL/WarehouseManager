@@ -22,7 +22,7 @@ public class ProductService {
             String amountStr = fields[4].replace("\"amount\":", "").trim();
             int amount = Integer.parseInt(amountStr.replaceAll("\"", ""));
 
-            Product res = new Product(name, producer, categoryId, price, amount);
+            Product res = new Product(name, "", producer, categoryId, price, amount);
             return res;
         }
         else {
@@ -31,6 +31,9 @@ public class ProductService {
     }
 
     public static boolean validateProduct(Product product) {
+        if(product == null) {
+            return false;
+        }
         if(product.getName() == null || product.getName().isEmpty()) {
             return false;
         }
@@ -40,7 +43,7 @@ public class ProductService {
         if(product.getPrice() <= 0) {
             return false;
         }
-        if(product.getAmount() <= 0) {
+        if(product.getAmount() < 0) {
             return false;
         }
 

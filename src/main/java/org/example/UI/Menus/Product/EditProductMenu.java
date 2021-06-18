@@ -35,7 +35,7 @@ public class EditProductMenu extends JFrame {
         this.setSize(400,550);
         this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void initComponents() {
@@ -64,7 +64,7 @@ public class EditProductMenu extends JFrame {
 
         //Krystya selectedProduct -> (Product) productsField.getSelectedProduct()
         //productPriceField = new JSpinner(new SpinnerNumberModel(selectedProduct.getPrice(), 1.0, 1000.0, 1.0));
-        productPriceField = new JSpinner();
+        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 1.0, 1000.0, 1.0));
         productPriceLabel = new JLabel("Price");
 
         categoryLabel = new JLabel("New category");

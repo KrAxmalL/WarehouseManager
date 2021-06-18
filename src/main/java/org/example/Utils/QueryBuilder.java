@@ -7,15 +7,16 @@ public class QueryBuilder {
             "CREATE TABLE IF NOT EXISTS product (" +
                     "id INTEGER PRIMARY KEY AUTO_INCREMENT," +
                     "name VARCHAR," +
+                    "description VARCHAR," +
                     "producer VARCHAR," +
                     "category_id INTEGER," +
                     "amount INTEGER," +
                     "price INTEGER," +
                     "FOREIGN KEY (category_id) REFERENCES category(id) ON UPDATE CASCADE ON DELETE CASCADE );";
 
-    public static final String INSERTING_INTO_PRODUCT = "INSERT INTO product(name, producer, category_id, " +
-            "                                            price, amount) VALUES(?, ?, ?, ?, ?)";
-    public static final String UPDATING_PRODUCT = "UPDATE product SET name = ?, producer = ?," +
+    public static final String INSERTING_INTO_PRODUCT = "INSERT INTO product(name, description, producer, category_id, " +
+            "                                            price, amount) VALUES(?, ?, ?, ?, ?, ?)";
+    public static final String UPDATING_PRODUCT = "UPDATE product SET name = ?, description = ?, producer = ?," +
                                                     "category_id = ?, amount = ?, " +
                                                     " price = ? WHERE id = ?";
     public static final String DELETING_ONE_FROM_PRODUCT = "DELETE FROM product WHERE id = ?";
