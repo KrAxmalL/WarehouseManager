@@ -20,16 +20,13 @@ public class MainProductController {
         this.productMenu = productMenu;
         initView();
         initControllers();
+        initActions();
     }
 
     private void initView() {
         this.addProductMenu = new AddProductMenu();
         this.editProductMenu = new EditProductMenu();
         this.deleteProductMenu = new DeleteProductMenu();
-
-        productMenu.getNewProduct().addActionListener(e -> showAddProductMenu());
-        productMenu.getEditProduct().addActionListener(e -> showEditProductMenu());
-        productMenu.getDeleteProduct().addActionListener(e -> showDeleteProductMenu());
     }
 
     private void initControllers() {
@@ -38,24 +35,21 @@ public class MainProductController {
         deleteProductController = new DeleteProductController(deleteProductMenu);
     }
 
+    private void initActions() {
+        productMenu.getNewProduct().addActionListener(e -> showAddProductMenu());
+        productMenu.getEditProduct().addActionListener(e -> showEditProductMenu());
+        productMenu.getDeleteProduct().addActionListener(e -> showDeleteProductMenu());
+    }
+
     public void showAddProductMenu() {
-        if(addProductMenu == null) {
-            addProductMenu = new AddProductMenu();
-        }
-        addProductMenu.setVisible(true);
+        addProductController.showView();
     }
 
     public void showEditProductMenu() {
-        if(editProductMenu == null) {
-            editProductMenu = new EditProductMenu();
-        }
-        editProductMenu.setVisible(true);
+        editProductController.showView();
     }
 
     public void showDeleteProductMenu() {
-        if(deleteProductMenu == null) {
-            deleteProductMenu = new DeleteProductMenu();
-        }
-        deleteProductMenu.setVisible(true);
+        deleteProductController.showView();
     }
 }

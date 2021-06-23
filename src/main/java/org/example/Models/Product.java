@@ -10,7 +10,7 @@ public class Product {
     private String producer;
     private int categoryId;
     private int amount;
-    private int price;
+    private double price;
 
     public Product() {}
 
@@ -89,18 +89,6 @@ public class Product {
                 ", categoryId=" + categoryId +
                 ", amount=" + amount +
                 ", price=" + price +
-                '}';
-    }
-
-    public String toJson() {
-        return "\"product\"{" +
-                "\"id\": " + id + ',' +
-                "\"name\": " + '"' + name + '"' + ',' +
-                "\"description\": " + '"' + description + '"' + ',' +
-                "\"producer\": " + '"' + producer + '"' +  ',' +
-                "\"categoryId\": " + categoryId + ',' +
-                "\"amount\": " + amount + ',' +
-                "\"price\": " + price +
                 '}';
     }
 

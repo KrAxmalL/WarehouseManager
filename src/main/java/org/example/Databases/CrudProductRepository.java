@@ -23,7 +23,6 @@ public class CrudProductRepository {
     }
 
     public boolean addProduct(Product product) {
-
         if(product != null) {
             try {
                 PreparedStatement query = dbConnection.getConnection().prepareStatement(QueryBuilder.INSERTING_INTO_PRODUCT);

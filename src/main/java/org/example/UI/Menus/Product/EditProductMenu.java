@@ -1,7 +1,9 @@
 package org.example.UI.Menus.Product;
 
 import org.example.Models.Category;
+import org.example.Models.Product;
 import org.example.UI.MainWindow;
+import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,7 +14,7 @@ public class EditProductMenu extends JFrame {
     private JPanel panel;
 
     private JLabel productLabel;
-    private JComboBox<Category> productField;
+    private JComboBox<Product> productField;
     private JTextField productNameField;
     private JLabel productNameLabel;
     private JTextField productDescriptionField;
@@ -40,42 +42,33 @@ public class EditProductMenu extends JFrame {
 
     private void initComponents() {
         productLabel = new JLabel("Choose product to edit");
+        productField = new JComboBox<Product>();
+        productField.setRenderer(new ProductRenderer());
 
-        productField = new JComboBox<>();
-        //Krystya selectedProduct -> (Product) productsField.getSelectedProduct()
-        //productNameField = new JTextField(selectedProduct .getName());
         productNameField = new JTextField();
-
         productNameField.setSize(200, 50);
         productNameLabel = new JLabel("New product name");
 
-        //Krystya selectedProduct -> (Product) productsField.getSelectedProduct()
-        //productDescriptionField = new JTextField(selectedProduct.getDescription());
         productDescriptionField = new JTextField();
-
         productDescriptionField.setSize(200, 50);
         productDescriptionLabel = new JLabel("New product description");
 
-        //Krystya selectedProduct -> (Product) productsField.getSelectedProduct()
-        //productSupplierField = new JTextField(selectedProduct.getSupplier());
         productSupplierField = new JTextField();
         productSupplierField.setSize(200, 50);
         productSupplierLabel = new JLabel("New product supplier");
 
-        //Krystya selectedProduct -> (Product) productsField.getSelectedProduct()
-        //productPriceField = new JSpinner(new SpinnerNumberModel(selectedProduct.getPrice(), 1.0, 1000.0, 1.0));
-        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 1.0, 1000.0, 1.0));
+        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 0.01, 1000000.0, 0.01));
         productPriceLabel = new JLabel("Price");
 
         categoryLabel = new JLabel("New category");
         categoryField = new JComboBox<>();
+        categoryField.setRenderer(new CategoryRenderer());
 
         editButton = new JButton("Edit");
         editButton.setSize(200, 50);
 
         cancelButton = new JButton("Cancel");
         cancelButton.setSize(200, 50);
-       // button.addActionListener(new MainWindow.ChangeProductsListener.ProductEditActionListener.productUpdateButtonListener());
     }
 
     private void initPanel() {
@@ -106,11 +99,11 @@ public class EditProductMenu extends JFrame {
         this.productLabel = productLabel;
     }
 
-    public JComboBox<Category> getProductField() {
+    public JComboBox<Product> getProductField() {
         return productField;
     }
 
-    public void setProductField(JComboBox<Category> productField) {
+    public void setProductField(JComboBox<Product> productField) {
         this.productField = productField;
     }
 

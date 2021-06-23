@@ -1,4 +1,4 @@
-package org.example.UI;
+package org.example;
 
 import org.example.Controllers.Main.MainController;
 import org.example.Databases.CrudCategoryRepository;
@@ -7,35 +7,32 @@ import org.example.Databases.CrudUserRepository;
 import org.example.Models.Category;
 import org.example.Models.Product;
 import org.example.Models.User;
+import org.example.Network.GlobalContext;
+import org.example.Network.ServeTCPClient;
 import org.example.Utils.Config;
 import org.example.Utils.MyCipher;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
 
+	public static GlobalContext context;
+
 	public static void main(String[] args) {
 
-		initUsers();
-		initCategories();
-		initProducts();
+		context = new GlobalContext();
 
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
 				JFrame.setDefaultLookAndFeelDecorated(true);
-				new MainController();
-				//new MainWindow();
+				MainController c = new MainController();
 			}
 		});
-	}
-
-	private static void initUsers() {
-		CrudUserRepository users = new CrudUserRepository();
-		MyCipher cipher = new MyCipher();
-		User user = new User(Config.TEST_LOGIN, cipher.encode(Config.TEST_PASSWORD));
-		users.addUser(user);
 	}
 
 	private static void initCategories() {
@@ -62,5 +59,4 @@ public class Main {
 			products.addProduct(new Product(name, description, producer, categoryId, price, amount));
 		}
 	}
-
 }

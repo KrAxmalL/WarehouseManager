@@ -1,7 +1,5 @@
 package org.example.Network;
 
-import com.sun.net.httpserver.HttpContext;
-import com.sun.net.httpserver.HttpServer;
 import org.example.Databases.CrudCategoryRepository;
 import org.example.Databases.CrudProductRepository;
 import org.example.Databases.CrudUserRepository;
@@ -12,36 +10,25 @@ import org.example.Utils.Config;
 import org.example.Utils.MyCipher;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-public class MyHttpServer {
+public class StoreServerTCP {
 
-    public static void main(String[] args) {
-        initUsers();
+    public static void main(String[] args) throws IOException {
         initCategories();
         initProducts();
 
+        ServerSocket server = new ServerSocket(Config.SERVER_PORT);
         try {
-            HttpServer server = HttpServer.create();
-            server.bind(new InetSocketAddress(Config.HTTP_SERVER_PORT), 0);
-
-            HttpContext context = server.createContext(LoginController.LOGIN_PATH);
-            context.setHandler(LoginController::serve);
-
-            context = server.createContext(ProductController.PRODUCT_PATH);
-            context.setHandler(ProductController::serve);
-
-            server.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+            for(int i = 0; i < 1; i++) {
+                Socket socket = server.accept();
+                new ServeTCPClient(socket);
+            }
         }
-    }
-
-    private static void initUsers() {
-        CrudUserRepository users = new CrudUserRepository();
-        MyCipher cipher = new MyCipher();
-        User user = new User(Config.TEST_LOGIN, cipher.encode(Config.TEST_PASSWORD));
-        users.addUser(user);
+        finally {
+            server.close();
+        }
     }
 
     private static void initCategories() {

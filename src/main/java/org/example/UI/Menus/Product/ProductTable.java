@@ -20,41 +20,6 @@ public class ProductTable extends JTable {
         setColumnModel(columnModel);
         dataModel = new CustomDataModel<Product>(columnModel, products);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        this.addMouseListener(new OnItemClicked());
         setModel(dataModel);
-    }
-
-    private class OnItemClicked implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            if(e.getButton() == MouseEvent.BUTTON3) {
-                int r = ProductTable.this.rowAtPoint(e.getPoint());
-                JPopupMenu menu = new JPopupMenu();
-                menu.show(e.getComponent(), e.getX(), e.getY());
-                System.out.println(r);
-            }
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
     }
 }

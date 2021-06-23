@@ -20,8 +20,6 @@ public class CategoryTable extends JTable{
         setColumnModel(columnModel);
         dataModel = new CustomDataModel<Category>(columnModel, categories);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        //this.addMouseListener(new ProductTable.OnItemClicked());
         setModel(dataModel);
     }
 }

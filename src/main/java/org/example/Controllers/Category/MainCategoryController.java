@@ -42,23 +42,14 @@ public class MainCategoryController {
     }
 
     public void showAddCategoryMenu() {
-        if(addCategoryMenu == null) {
-            addCategoryMenu = new AddCategoryMenu();
-        }
-        addCategoryMenu.setVisible(true);
+        addCategoryController.showView();
     }
 
     public void showEditCategoryMenu() {
-        if(editCategoryMenu == null) {
-            editCategoryMenu = new EditCategoryMenu();
-        }
-        editCategoryMenu.setVisible(true);
+        editCategoryController.showView();
     }
 
     public void showDeleteCategoryMenu() {
-        if(deleteCategoryMenu == null) {
-            deleteCategoryMenu = new DeleteCategoryMenu();
-        }
-        deleteCategoryMenu.setVisible(true);
+        deleteCategoryController.showView();
     }
 }

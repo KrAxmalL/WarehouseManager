@@ -9,13 +9,13 @@ public class QueryBuilder {
                     "name VARCHAR," +
                     "description VARCHAR," +
                     "producer VARCHAR," +
-                    "category_id INTEGER," +
+                    "category_id INTEGER NULL," +
                     "amount INTEGER," +
                     "price INTEGER," +
-                    "FOREIGN KEY (category_id) REFERENCES category(id) ON UPDATE CASCADE ON DELETE CASCADE );";
+                    "CONSTRAINT CATEGORY_OF_PRODUCT_ID FOREIGN KEY(category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE);";
 
     public static final String INSERTING_INTO_PRODUCT = "INSERT INTO product(name, description, producer, category_id, " +
-            "                                            price, amount) VALUES(?, ?, ?, ?, ?, ?)";
+            "amount, price) VALUES(?, ?, ?, ?, ?, ?)";
     public static final String UPDATING_PRODUCT = "UPDATE product SET name = ?, description = ?, producer = ?," +
                                                     "category_id = ?, amount = ?, " +
                                                     " price = ? WHERE id = ?";
@@ -41,6 +41,7 @@ public class QueryBuilder {
     public static final String DELETING_ONE_FROM_CATEGORY = "DELETE FROM category WHERE id = ?";
     public static final String READING_ALL_FROM_CATEGORY = "SELECT * FROM category";
     public static final String READING_ONE_FROM_CATEGORY = "SELECT * FROM category WHERE id = ?";
+    public static final String READING_ONE_BY_NAME_FROM_CATEGORY = "SELECT * FROM category WHERE name = ?";
 
     public static final String CLEAR_CATEGORY = "DELETE FROM category";
     public static final String DELETE_CATEGORY_TABLE = "DROP TABLE category";
@@ -162,8 +163,7 @@ public class QueryBuilder {
             return "description";
         }
         else {
-            //if wrong code of criteria - by default sorting by name
-            return "name";
+            return "id";
         }
     }
 

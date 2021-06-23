@@ -28,8 +28,8 @@ public class DeleteCategoryMenu extends JFrame {
     }
 
     private void initComponents() {
-        categoriesField = new JComboBox(/*new DefaultComboBoxModel(warehouse.getAllCategories().toArray())*/);
-        //categoriesField.setRenderer(new MainWindow.CategoryRenderer());
+        categoriesField = new JComboBox();
+        categoriesField.setRenderer(new CategoryRenderer());
         categoriesLabel = new JLabel("Choose category to delete");
 
         deleteButton = new JButton("Delete");

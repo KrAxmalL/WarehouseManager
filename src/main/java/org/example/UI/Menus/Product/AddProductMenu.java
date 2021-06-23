@@ -1,11 +1,15 @@
 package org.example.UI.Menus.Product;
 
+import org.example.Databases.CrudCategoryRepository;
 import org.example.Models.Category;
 import org.example.UI.MainWindow;
+import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.Iterator;
+import java.util.List;
 
 public class AddProductMenu extends JFrame {
 
@@ -49,11 +53,11 @@ public class AddProductMenu extends JFrame {
         productSupplierField.setSize(200, 50);
         productSupplierLabel = new JLabel("New product supplier");
 
-        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 1.0, 1000.0, 1.0));
+        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 0.01, 1000000.0, 0.01));
         productPriceLabel = new JLabel("Price");
 
         categoriesField = new JComboBox();
-        //categoriesField.setRenderer(new MainWindow.CategoryRenderer());
+        categoriesField.setRenderer(new CategoryRenderer());
         categoriesLabel = new JLabel("Category");
 
         addButton = new JButton("Add");

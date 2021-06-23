@@ -1,6 +1,7 @@
 package org.example.Databases;
 
 import org.example.Models.Category;
+import org.example.Models.Product;
 import org.example.Utils.QueryBuilder;
 
 import java.sql.PreparedStatement;
@@ -91,6 +92,23 @@ public class CrudCategoryRepository {
         try {
             PreparedStatement query = dbConnection.getConnection().prepareStatement(QueryBuilder.READING_ONE_FROM_CATEGORY);
             query.setInt(1, id);
+            ResultSet resultSet = query.executeQuery();
+            Category result = null;
+            if(resultSet.next()) {
+                result = rowToCategory(resultSet);
+            }
+            query.close();
+            return result;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public Category getCategoryByName(String name) {
+        try {
+            PreparedStatement query = dbConnection.getConnection().prepareStatement(QueryBuilder.READING_ONE_BY_NAME_FROM_CATEGORY);
+            query.setString(1, name);
             ResultSet resultSet = query.executeQuery();
             Category result = null;
             if(resultSet.next()) {

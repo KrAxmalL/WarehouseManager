@@ -15,7 +15,7 @@ public class DecreaseProductAmountMenu extends JFrame {
     private JLabel clarificationLabel;
     private JLabel currentStockLabel;
     private JComboBox<Product> itemsBox;
-    private JSpinner stocksToAdd;
+    private JSpinner stocksToRemove;
     private JButton okButton;
     private JButton cancelButton;
 
@@ -27,7 +27,7 @@ public class DecreaseProductAmountMenu extends JFrame {
         this.setSize(400,500);
         this.setBounds(MainWindow.DIMENSION.width / 2 - this.getWidth() / 2, MainWindow.DIMENSION.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         this.add(panel);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     private void initComponents() {
@@ -45,16 +45,14 @@ public class DecreaseProductAmountMenu extends JFrame {
         clarificationLabel = new JLabel("(positive number adds stocks, negative � writes them off)");
         currentStockLabel = new JLabel("");
 
-        //selectedItem = (Item)itemsBox.getSelectedItem();
         currentStockLabel.setText("Current stock qty: " + 1);
-        stocksToAdd = new JSpinner(/*new SpinnerNumberModel(1, selectedItem.getStock() * -1, selectedItem != null ? 10000 - selectedItem.getStock() : 10000, 1)*/);
+        stocksToRemove = new JSpinner(new SpinnerNumberModel(10, 1, 1000000, 1));
 
         okButton = new JButton("Ok");
         okButton.setSize(200, 50);
 
         cancelButton = new JButton("Cancel");
         cancelButton.setSize(200, 50);
-        //button.addActionListener(new MainWindow.ManipulateStocksListener.StocksAddActionListener());
     }
 
     private void initPanel() {
@@ -64,7 +62,7 @@ public class DecreaseProductAmountMenu extends JFrame {
         panel.add(itemsBoxLabel);
         panel.add(itemsBox);
         panel.add(currentStockLabel);
-        panel.add(stocksToAdd);
+        panel.add(stocksToRemove);
         panel.add(okButton);
         panel.add(cancelButton);
     }
@@ -109,12 +107,12 @@ public class DecreaseProductAmountMenu extends JFrame {
         this.itemsBox = itemsBox;
     }
 
-    public JSpinner getStocksToAdd() {
-        return stocksToAdd;
+    public JSpinner getStocksToRemove() {
+        return stocksToRemove;
     }
 
-    public void setStocksToAdd(JSpinner stocksToAdd) {
-        this.stocksToAdd = stocksToAdd;
+    public void setStocksToRemove(JSpinner stocksToRemove) {
+        this.stocksToRemove = stocksToRemove;
     }
 
     public JButton getOkButton() {

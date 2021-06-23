@@ -28,8 +28,8 @@ public class DeleteProductMenu extends JFrame {
     }
 
     private void initComponents() {
-        productsField = new JComboBox(/*new DefaultComboBoxModel(warehouse.getAllProducts().toArray())*/);
-        //productsField.setRenderer(new MainWindow.ItemRenderer());
+        productsField = new JComboBox();
+        productsField.setRenderer(new ProductRenderer());
         productsLabel = new JLabel("Choose product to delete");
 
         deleteButton = new JButton("Delete");

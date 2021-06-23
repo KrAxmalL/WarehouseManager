@@ -36,7 +36,7 @@ public class MainWindow extends JFrame
 
     public MainWindow()
     {
-        super("Menu");
+        super("Warehouse Manager");
         setup();
         initComponents();
         setVisible(true);
@@ -58,9 +58,7 @@ public class MainWindow extends JFrame
 
         setJMenuBar(menuBar);
 
-        CrudProductRepository repo = new CrudProductRepository();
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(new ProductTable(repo.getAll().toArray(new Product[0])));
         add(scrollPane, new GridBagConstraints(
                 0, 0, 1, 1, 1, 1, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0
         ));
@@ -140,21 +138,6 @@ public class MainWindow extends JFrame
         this.scrollPane = scrollPane;
     }
 
-    /*public static class CategoryRenderer extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value != null) setText(((Category) value).getName());
-            return this;
-        }
-    }
-
-    private static class ItemRenderer extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value != null) setText(((Item) value).getName());
-            return this;
-        }
-    }*/
 }
 
    

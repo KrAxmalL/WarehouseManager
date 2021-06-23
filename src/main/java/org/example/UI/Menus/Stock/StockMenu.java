@@ -17,20 +17,7 @@ public class StockMenu extends JMenu {
     private void init()
     {
         increaseProductAmount = new JMenuItem("Increase product amount");
-        increaseProductAmount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new IncreaseProductAmountMenu();
-            }
-        });
-
         decreaseProductAmount  = new JMenuItem("Decrease product amount");
-        decreaseProductAmount.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DecreaseProductAmountMenu();
-            }
-        });
 
         this.add(increaseProductAmount);
         this.add(decreaseProductAmount);

@@ -37,8 +37,7 @@ public class EditCategoryMenu extends JFrame {
 
         categoryLabel = new JLabel("Choose category to edit");
         categoryField = new JComboBox<>();
-        //categoryNameField = new JTextField(selectedCategory.getName());
-        //Khrystya selectedCategory.getName() -> ((Category) categoriesField.getSelectedItem()).getName()
+        categoryField.setRenderer(new CategoryRenderer());
         categoryNameField = new JTextField();
 
         categoryNameField.setSize(200, 50);
