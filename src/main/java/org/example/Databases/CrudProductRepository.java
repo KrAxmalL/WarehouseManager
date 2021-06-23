@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CrudProductRepository {
@@ -31,7 +32,7 @@ public class CrudProductRepository {
                 query.setString(3, product.getProducer());
                 query.setInt(4, product.getCategoryId());
                 query.setInt(5, product.getAmount());
-                query.setDouble(6, product.getPrice());
+                query.setBigDecimal(6, product.getPrice());
                 int res = query.executeUpdate();
                 query.close();
                 return true;
@@ -83,7 +84,7 @@ public class CrudProductRepository {
                     query.setString(3, product.getProducer());
                     query.setInt(4, product.getCategoryId());
                     query.setInt(5, product.getAmount());
-                    query.setDouble(6, product.getPrice());
+                    query.setBigDecimal(6, product.getPrice());
                     query.setInt(7, product.getId());
                     boolean res = (query.executeUpdate() == 1);
                     query.close();
@@ -151,6 +152,8 @@ public class CrudProductRepository {
     public List<Product> listByCriteria(int commandType, String[] parameters) {
         List<Product> result = new ArrayList<>();
         String strQuery = QueryBuilder.selectCriteria(commandType, parameters);
+        System.out.println("Query: " + strQuery);
+        System.out.println(Arrays.deepToString(parameters));
         try {
             Statement query = dbConnection.getConnection().createStatement();
             ResultSet resultSet = query.executeQuery(strQuery);
@@ -185,7 +188,7 @@ public class CrudProductRepository {
             product.setProducer(resultSet.getString(4));
             product.setCategoryId(resultSet.getInt(5));
             product.setAmount(resultSet.getInt(6));
-            product.setPrice(resultSet.getInt(7));
+            product.setPrice(resultSet.getBigDecimal(7));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

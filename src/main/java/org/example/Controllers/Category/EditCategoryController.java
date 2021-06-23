@@ -3,6 +3,7 @@ package org.example.Controllers.Category;
 import org.example.Models.Category;
 import org.example.Models.Category;
 import org.example.Models.Message;
+import org.example.Models.Product;
 import org.example.Network.GlobalContext;
 import org.example.Services.CategoryService;
 import org.example.UI.Menus.Category.EditCategoryMenu;
@@ -38,6 +39,8 @@ public class EditCategoryController {
         editCategoryMenu.getCancelButton().addActionListener(e -> cancel());
 
         updateCategories();
+
+        editCategoryMenu.getCategoryField().addActionListener(e -> fillFields());
     }
 
     private void updateCategories() {
@@ -47,6 +50,19 @@ public class EditCategoryController {
         while(it.hasNext()) {
             comboBox.addItem(it.next());
         }
+    }
+
+    private void fillFields() {
+        if(!categories.isEmpty()) {
+            Category selectedCategory = (Category)editCategoryMenu.getCategoryField().getSelectedItem();
+            if(selectedCategory != null) {
+                editCategoryMenu.getCategoryNameField().setText(selectedCategory.getName());
+                editCategoryMenu.getCategoryDescriptionField().setText(selectedCategory.getDescription());
+                return;
+            }
+        }
+        editCategoryMenu.getCategoryNameField().setText("");
+        editCategoryMenu.getCategoryDescriptionField().setText("");
     }
 
     private void accepted() {

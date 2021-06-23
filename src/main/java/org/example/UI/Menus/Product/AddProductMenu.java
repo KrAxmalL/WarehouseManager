@@ -7,6 +7,7 @@ import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +22,7 @@ public class AddProductMenu extends JFrame {
     private JLabel productDescriptionLabel;
     private JTextField productSupplierField;
     private JLabel productSupplierLabel;
-    private JSpinner productPriceField;
+    private JTextField productPriceField;
     private JLabel productPriceLabel;
     private JComboBox<Category> categoriesField;
     private JLabel categoriesLabel;
@@ -53,7 +54,8 @@ public class AddProductMenu extends JFrame {
         productSupplierField.setSize(200, 50);
         productSupplierLabel = new JLabel("New product supplier");
 
-        productPriceField = new JSpinner(new SpinnerNumberModel(10.0, 0.01, 1000000.0, 0.01));
+        productPriceField = new JTextField();
+        productPriceField.setSize(200, 50);
         productPriceLabel = new JLabel("Price");
 
         categoriesField = new JComboBox();
@@ -142,11 +144,11 @@ public class AddProductMenu extends JFrame {
         this.productSupplierLabel = productSupplierLabel;
     }
 
-    public JSpinner getProductPriceField() {
+    public JTextField getProductPriceField() {
         return productPriceField;
     }
 
-    public void setProductPriceField(JSpinner productPriceField) {
+    public void setProductPriceField(JTextField productPriceField) {
         this.productPriceField = productPriceField;
     }
 

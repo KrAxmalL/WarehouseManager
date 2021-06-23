@@ -5,11 +5,13 @@ import org.example.Models.Message;
 import org.example.Models.Product;
 import org.example.Network.GlobalContext;
 import org.example.Services.ProductService;
+import org.example.UI.Menus.Product.ProductTable;
 import org.example.UI.Menus.Report.FilterProductMenu;
 import org.example.Utils.CommandTypeEncoder;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class FilterProductController {
 
     private List<Category> categories;
 
+    private static final String BIG_DECIMAL_PATTERN = "-?(?:\\d+(?:\\.\\d+)?|\\.\\d+)";
+
     public FilterProductController(FilterProductMenu filterProductMenu, JScrollPane tableView) {
         this.filterProductMenu = filterProductMenu;
         this.tableView = tableView;
@@ -31,6 +35,12 @@ public class FilterProductController {
     private void initView() {
         filterProductMenu.getFilterButton().addActionListener(e -> accepted());
         filterProductMenu.getCancelButton().addActionListener(e -> cancel());
+
+        /*filterProductMenu.getNameButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
+        filterProductMenu.getProducerButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
+        filterProductMenu.getPriceButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
+        filterProductMenu.getAmountButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
+        filterProductMenu.getCategoryButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));*/
     }
 
     public void showView() {
@@ -47,6 +57,43 @@ public class FilterProductController {
         }
     }
 
+    /*private void showFields(String buttonName) {
+        if(buttonName.equals("name") || buttonName.equals("producer")) {
+            filterProductMenu.getTextLabel().setVisible(true);
+            filterProductMenu.getTextField().setVisible(true);
+            filterProductMenu.getMinNumberSpinner().setVisible(false);
+            filterProductMenu.getMinNumberLabel().setVisible(false);
+            filterProductMenu.getMaxNumberSpinner().setVisible(false);
+            filterProductMenu.getMaxNumberLabel().setVisible(false);
+            filterProductMenu.getCategoriesField().setVisible(false);
+            filterProductMenu.getCategoriesLabel().setVisible(false);
+        }
+        else if(buttonName.equals("price") || buttonName.equals("amount")) {
+            filterProductMenu.getMinNumberLabel().setVisible(true);
+            filterProductMenu.getMinNumberSpinner().setVisible(true);
+            filterProductMenu.getMaxNumberLabel().setVisible(true);
+            filterProductMenu.getMaxNumberSpinner().setVisible(true);
+            filterProductMenu.getTextField().setVisible(false);
+            filterProductMenu.getTextLabel().setVisible(false);
+            filterProductMenu.getCategoriesField().setVisible(false);
+            filterProductMenu.getCategoriesLabel().setVisible(false);
+        }
+        else if(buttonName.equals("category")) {
+            filterProductMenu.getCategoriesLabel().setVisible(true);
+            filterProductMenu.getCategoriesField().setVisible(true);
+            filterProductMenu.getMinNumberSpinner().setVisible(false);
+            filterProductMenu.getMinNumberLabel().setVisible(false);
+            filterProductMenu.getMaxNumberSpinner().setVisible(false);
+            filterProductMenu.getMaxNumberLabel().setVisible(false);
+            filterProductMenu.getCategoriesField().setVisible(false);
+            filterProductMenu.getTextField().setVisible(false);
+            filterProductMenu.getTextLabel().setVisible(false);
+        }
+        else {
+
+        }
+    }*/
+
     private void accepted() {
         int entity = CommandTypeEncoder.PRODUCT;
         int command = CommandTypeEncoder.LIST_BY_CRITERIA;
@@ -59,50 +106,89 @@ public class FilterProductController {
                 String chosenOrder = orderModel.getActionCommand();
                 int orderCommand = getOrderCommand(chosenOrder);
 
-                int requestCommand = CommandTypeEncoder.createCommand(entity, command, fieldCommand, orderCommand);
-
                 System.out.println(chosenField);
                 System.out.println(chosenOrder);
+
+                String toSend = readData(fieldCommand);
+                if(toSend != null) {
+                    int requestCommand = CommandTypeEncoder.createCommand(entity, command, fieldCommand, orderCommand);
+                    try {
+                        GlobalContext.client.sendRequest(requestCommand, toSend);
+                        Message response = GlobalContext.client.getResponse();
+                        System.out.println("String in filterproduct response: " + response.getMessage());
+                        String responseData = response.getMessage().trim();
+                        if(responseData != null && !responseData.isEmpty()) {
+                            String[] productsAsString = responseData.split("\n");
+                            Product[] productsToShow = new Product[productsAsString.length];
+                            for (int i = 0; i < productsToShow.length; i++) {
+                                if (!productsAsString[i].isEmpty()) {
+                                    productsToShow[i] = ProductService.parseProductFromJson(productsAsString[i]);
+                                }
+                            }
+                            tableView.setViewportView(new ProductTable(productsToShow));
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "No results found!");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-
         }
+    }
 
-        /*Product pr = new Product();
-
-        int entity = filterProductMenu.getE
-        pr.setName(addProductMenu.getProductNameField().getText());
-        pr.setDescription(addProductMenu.getProductDescriptionField().getText());
-        pr.setProducer(addProductMenu.getProductSupplierField().getText());
-        //check parsing
-        double price = (Double)(addProductMenu.getProductPriceField().getValue());
-        pr.setPrice((int) price);
-        pr.setAmount(0);
-        Category category = (Category)(addProductMenu.getCategoriesField().getSelectedItem());
-        if(category == null) {
-            JOptionPane.showMessageDialog(null, "Choose a category!");
+    private String readData(int commandType) {
+        if(commandType == CommandTypeEncoder.CRITERIA_NAME || commandType == CommandTypeEncoder.CRITERIA_PRODUCER) {
+            String data = filterProductMenu.getTextField().getText();
+            if(data == null) {
+                data = "";
+            }
+            return data;
         }
-        else {
-            pr.setCategoryId(category.getId());
-        }
-
-        System.out.println(pr);
-        try {
-            GlobalContext.client.sendRequest(ADD_COMMAND, ProductService.productToJson(pr));
-            Message response = GlobalContext.client.getResponse();
-            System.out.println(response);
-            if(response.getMessage().equals("ok")) {
-                JOptionPane.showMessageDialog(null, "Product accepted!");
-                GlobalContext.updateProductsCache();
+        else if(commandType == CommandTypeEncoder.CRITERIA_AMOUNT || commandType == CommandTypeEncoder.CRITERIA_PRICE) {
+            String min = filterProductMenu.getMinNumber().getText();
+            if(min.matches(BIG_DECIMAL_PATTERN)) {
+                BigDecimal minValue = new BigDecimal(min);
+                String max = filterProductMenu.getMaxNumber().getText();
+                if(max.matches(BIG_DECIMAL_PATTERN)) {
+                    BigDecimal maxValue = new BigDecimal(max);
+                    if(minValue.compareTo(maxValue) <= 0) {
+                        String data = minValue.toString() + "," + maxValue.toString();
+                        return data;
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Wrong input");
+                        return null;
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Wrong input");
+                    return null;
+                }
             }
             else {
-                JOptionPane.showMessageDialog(null, "Wrong input!");
+                JOptionPane.showMessageDialog(null, "Wrong input");
+                return null;
             }
-            //System.out.println(GlobalContext.productCache);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        }
+        else if(commandType == CommandTypeEncoder.CRITERIA_CATEGORY_ID) {
+            Category selectedCategory = (Category)filterProductMenu.getCategoriesField().getSelectedItem();
+            if(selectedCategory != null) {
+                int categoryId = selectedCategory.getId();
+                String data = String.valueOf(categoryId) + "," + String.valueOf(categoryId);
+                return data;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Select category!");
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
     }
 
     private int getFieldCommand(String field) {

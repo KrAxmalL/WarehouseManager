@@ -6,6 +6,7 @@ import org.example.Models.Category;
 import org.example.Models.Product;
 import org.example.Utils.CommandTypeEncoder;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,10 +28,11 @@ public class ProductService {
             String amountStr = fields[5].replace("\"amount\":", "").trim();
             int amount = Integer.parseInt(amountStr.replaceAll("\"", ""));
             String priceStr = fields[6].replace("\"price\":", "").trim();
-            double price = Double.parseDouble(priceStr.replaceAll("\"", ""));
+            BigDecimal price = new BigDecimal(priceStr.replaceAll("\"", ""));
 
             Product res = new Product(name, description, producer, categoryId, amount, price);
             res.setId(id);
+            System.out.println("Parsed product from json: " + res);
             return res;
         }
         else {
@@ -132,7 +134,7 @@ public class ProductService {
         if(product.getDescription() == null) {
             return false;
         }
-        if(product.getPrice() <= 0) {
+        if((product.getPrice().compareTo(BigDecimal.ZERO)) < 1) {
             return false;
         }
         if(product.getAmount() < 0) {

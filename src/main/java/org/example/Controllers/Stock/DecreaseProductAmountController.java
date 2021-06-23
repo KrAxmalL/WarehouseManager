@@ -19,6 +19,8 @@ public class DecreaseProductAmountController {
 
     private List<Product> products;
 
+    private static final String INTEGER_PATTERN = "-?\\d+";
+
     private static final int EDIT_COMMAND = CommandTypeEncoder.PRODUCT ^ CommandTypeEncoder.UPDATE;
 
     public DecreaseProductAmountController(DecreaseProductAmountMenu decreaseProductAmountMenu) {
@@ -33,11 +35,24 @@ public class DecreaseProductAmountController {
         decreaseProductAmountMenu.getCancelButton().addActionListener(e -> cancel());
 
         updateProducts();
+
+        decreaseProductAmountMenu.getItemsBox().addActionListener(e -> fillFields());
     }
 
     public void showView() {
         updateProducts();
         decreaseProductAmountMenu.setVisible(true);
+    }
+
+    private void fillFields() {
+        if(!products.isEmpty()) {
+            Product selectedProduct = (Product)decreaseProductAmountMenu.getItemsBox().getSelectedItem();
+            if(selectedProduct != null) {
+                decreaseProductAmountMenu.getCurrentStockLabel().setText("Current product amount: " + selectedProduct.getAmount());
+                return;
+            }
+        }
+        decreaseProductAmountMenu.getCurrentStockLabel().setText("Current product amount: ");
     }
 
     private void updateProducts() {
@@ -52,34 +67,42 @@ public class DecreaseProductAmountController {
     private void accepted() {
         Product selected = (Product)(decreaseProductAmountMenu.getItemsBox().getSelectedItem());
         if(selected != null) {
-            Product pr = new Product();
-            pr.setId(selected.getId());
-            pr.setName(selected.getName());
-            pr.setDescription(selected.getDescription());
-            pr.setProducer(selected.getProducer());
-            //fix all spinners
-            pr.setPrice(selected.getPrice());
-            int amountToTake = (Integer)(decreaseProductAmountMenu.getStocksToRemove().getValue());
-            pr.setAmount(selected.getAmount() - amountToTake);
-            pr.setCategoryId(selected.getCategoryId());
-
-            System.out.println(pr);
-            try {
-                GlobalContext.client.sendRequest(EDIT_COMMAND, ProductService.productToJson(pr));
-                Message response = GlobalContext.client.getResponse();
-                System.out.println(response);
-                if (response.getMessage().equals("ok")) {
-                    JOptionPane.showMessageDialog(null, "Product changed!");
-                    GlobalContext.updateProductsCache();
-                    decreaseProductAmountMenu.setVisible(false);
-                } else {
+            String amountStr = decreaseProductAmountMenu.getStocksToRemove().getText();
+            if(amountStr.matches(INTEGER_PATTERN)) {
+                Product pr = new Product();
+                pr.setId(selected.getId());
+                pr.setName(selected.getName());
+                pr.setDescription(selected.getDescription());
+                pr.setProducer(selected.getProducer());
+                pr.setPrice(selected.getPrice());
+                int amountToTake = Integer.parseInt(amountStr);
+                if(amountToTake > 0) {
+                    pr.setAmount(selected.getAmount() - amountToTake);
+                    pr.setCategoryId(selected.getCategoryId());
+                    System.out.println(pr);
+                    try {
+                        GlobalContext.client.sendRequest(EDIT_COMMAND, ProductService.productToJson(pr));
+                        Message response = GlobalContext.client.getResponse();
+                        System.out.println(response);
+                        if (response.getMessage().equals("ok")) {
+                            JOptionPane.showMessageDialog(null, "Product changed!");
+                            GlobalContext.updateProductsCache();
+                            decreaseProductAmountMenu.setVisible(false);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Wrong input!");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
                     JOptionPane.showMessageDialog(null, "Wrong input!");
                 }
-                //System.out.println(GlobalContext.productCache);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Wrong input!");
             }
         }
         else {

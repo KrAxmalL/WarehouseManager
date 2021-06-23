@@ -15,6 +15,7 @@ import org.example.Utils.MyCipher;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -54,9 +55,9 @@ public class MainClient {
 			if(categoryId == 0) {
 				categoryId = 1;
 			}
-			int price = 100 * i;
+			BigDecimal price = BigDecimal.valueOf(100 * i);
 			int amount = 10 * i;
-			products.addProduct(new Product(name, description, producer, categoryId, price, amount));
+			products.addProduct(new Product(name, description, producer, categoryId, amount, price));
 		}
 	}
 }

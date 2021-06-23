@@ -20,18 +20,22 @@ public class AddCategoryController {
 
     public AddCategoryController(AddCategoryMenu addCategoryMenu) {
         this.addCategoryMenu = addCategoryMenu;
-        //this.categoryService = new CategoryService();
         initView();
     }
 
     public void showView() {
+        fillFields();
         addCategoryMenu.setVisible(true);
     }
 
     private void initView() {
         addCategoryMenu.getAddButton().addActionListener(e -> accepted());
         addCategoryMenu.getCancelButton().addActionListener(e -> cancel());
-        //add categories to choose
+    }
+
+    private void fillFields() {
+        addCategoryMenu.getCategoryNameField().setText("");
+        addCategoryMenu.getCategoryDescriptionField().setText("");
     }
 
     private void accepted() {

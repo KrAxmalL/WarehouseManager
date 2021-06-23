@@ -15,9 +15,9 @@ public class FilterProductMenu extends JFrame {
     private JTextField textField;
     private JLabel textLabel;
 
-    private JSpinner minNumberSpinner;
+    private JTextField minNumber;
     private JLabel minNumberLabel;
-    private JSpinner maxNumberSpinner;
+    private JTextField maxNumber;
     private JLabel maxNumberLabel;
 
     private ButtonGroup fieldButtonGroup;
@@ -57,17 +57,16 @@ public class FilterProductMenu extends JFrame {
         textField.setSize(200, 50);
 
         minNumberLabel = new JLabel("Minimal number");
-        minNumberSpinner = new JSpinner();
-        minNumberSpinner.setSize(200, 50);
+        minNumber = new JTextField();
+        minNumber.setSize(200, 50);
         maxNumberLabel = new JLabel("Maximal number");
-        maxNumberSpinner = new JSpinner();
-        maxNumberSpinner.setSize(200, 50);
+        maxNumber = new JTextField();
+        maxNumber.setSize(200, 50);
 
         categoriesLabel = new JLabel("Category");
         categoriesField = new JComboBox();
         categoriesField.setRenderer(new CategoryRenderer());
         categoriesField.setSize(200, 50);
-        //categoriesField.setRenderer(new MainWindow.CategoryRenderer());
 
         fieldLabel = new JLabel("Choose field");
         nameButton = new JRadioButton("name");
@@ -111,9 +110,9 @@ public class FilterProductMenu extends JFrame {
         panel.add(textLabel);
         panel.add(textField);
         panel.add(minNumberLabel);
-        panel.add(minNumberSpinner);
+        panel.add(minNumber);
         panel.add(maxNumberLabel);
-        panel.add(maxNumberSpinner);
+        panel.add(maxNumber);
         panel.add(categoriesLabel);
         panel.add(categoriesField);
         panel.add(fieldLabel);
@@ -153,12 +152,12 @@ public class FilterProductMenu extends JFrame {
         this.textLabel = textLabel;
     }
 
-    public JSpinner getMinNumberSpinner() {
-        return minNumberSpinner;
+    public JTextField getMinNumber() {
+        return minNumber;
     }
 
-    public void setMinNumberSpinner(JSpinner minNumberSpinner) {
-        this.minNumberSpinner = minNumberSpinner;
+    public void setMinNumber(JTextField minNumber) {
+        this.minNumber = minNumber;
     }
 
     public JLabel getMinNumberLabel() {
@@ -169,12 +168,12 @@ public class FilterProductMenu extends JFrame {
         this.minNumberLabel = minNumberLabel;
     }
 
-    public JSpinner getMaxNumberSpinner() {
-        return maxNumberSpinner;
+    public JTextField getMaxNumber() {
+        return maxNumber;
     }
 
-    public void setMaxNumberSpinner(JSpinner maxNumberSpinner) {
-        this.maxNumberSpinner = maxNumberSpinner;
+    public void setMaxNumber(JTextField maxNumber) {
+        this.maxNumber = maxNumber;
     }
 
     public JLabel getMaxNumberLabel() {

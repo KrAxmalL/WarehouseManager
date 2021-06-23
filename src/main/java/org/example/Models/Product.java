@@ -1,5 +1,6 @@
 package org.example.Models;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Product {
@@ -10,11 +11,11 @@ public class Product {
     private String producer;
     private int categoryId;
     private int amount;
-    private double price;
+    private BigDecimal price;
 
     public Product() {}
 
-    public Product(String name, String description, String producer, int categoryId, int amount, double price) {
+    public Product(String name, String description, String producer, int categoryId, int amount, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.producer = producer;
@@ -71,11 +72,11 @@ public class Product {
         this.amount = amount;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

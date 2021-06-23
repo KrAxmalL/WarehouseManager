@@ -13,10 +13,9 @@ public class IncreaseProductAmountMenu extends JFrame {
     private JPanel panel;
 
     private JLabel itemsBoxLabel;
-    private JLabel clarificationLabel;
     private JLabel currentStockLabel;
     private JComboBox<Product> itemsBox;
-    private JSpinner stocksToAdd;
+    private JTextField stocksToAdd;
     private JButton okButton;
     private JButton cancelButton;
 
@@ -36,11 +35,11 @@ public class IncreaseProductAmountMenu extends JFrame {
         itemsBox.setRenderer(new ProductRenderer());
 
         itemsBoxLabel = new JLabel("Choose item to change stocks amount");
-        clarificationLabel = new JLabel("(positive number adds stocks, negative � writes them off)");
         currentStockLabel = new JLabel("");
 
-        currentStockLabel.setText("Current stock qty: ");
-        stocksToAdd = new JSpinner(new SpinnerNumberModel(10, 1, 1000000, 1));
+        currentStockLabel.setText("");
+        stocksToAdd = new JTextField();
+        stocksToAdd.setSize(200, 50);
 
         okButton = new JButton("Ok");
         okButton.setSize(200, 50);
@@ -77,14 +76,6 @@ public class IncreaseProductAmountMenu extends JFrame {
         this.itemsBoxLabel = itemsBoxLabel;
     }
 
-    public JLabel getClarificationLabel() {
-        return clarificationLabel;
-    }
-
-    public void setClarificationLabel(JLabel clarificationLabel) {
-        this.clarificationLabel = clarificationLabel;
-    }
-
     public JLabel getCurrentStockLabel() {
         return currentStockLabel;
     }
@@ -101,11 +92,11 @@ public class IncreaseProductAmountMenu extends JFrame {
         this.itemsBox = itemsBox;
     }
 
-    public JSpinner getStocksToAdd() {
+    public JTextField getStocksToAdd() {
         return stocksToAdd;
     }
 
-    public void setStocksToAdd(JSpinner stocksToAdd) {
+    public void setStocksToAdd(JTextField stocksToAdd) {
         this.stocksToAdd = stocksToAdd;
     }
 

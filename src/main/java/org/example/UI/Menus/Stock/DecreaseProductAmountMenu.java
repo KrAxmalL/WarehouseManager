@@ -2,6 +2,7 @@ package org.example.UI.Menus.Stock;
 
 import org.example.Models.Product;
 import org.example.UI.MainWindow;
+import org.example.UI.Menus.Product.ProductRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,10 +13,9 @@ public class DecreaseProductAmountMenu extends JFrame {
     private JPanel panel;
 
     private JLabel itemsBoxLabel;
-    private JLabel clarificationLabel;
     private JLabel currentStockLabel;
     private JComboBox<Product> itemsBox;
-    private JSpinner stocksToRemove;
+    private JTextField stocksToRemove;
     private JButton okButton;
     private JButton cancelButton;
 
@@ -32,21 +32,13 @@ public class DecreaseProductAmountMenu extends JFrame {
 
     private void initComponents() {
         itemsBox = new JComboBox();
-        //itemsBox.setRenderer(new MainWindow.ItemRenderer());
-        /*itemsBox.addActionListener(new ActionListener() {
+        itemsBox.setRenderer(new ProductRenderer());
 
-            public void actionPerformed(ActionEvent e) {
-                selectedItem = (Item)itemsBox.getSelectedItem();
-                currentStockLabel.setText("Current stock qty: " + selectedItem.getStock());
-                stocksToAdd.setModel(new SpinnerNumberModel(1, selectedItem.getStock() * -1, selectedItem != null ? 10000 - selectedItem.getStock() : 10000, 1));
-            }
-        });*/
         itemsBoxLabel = new JLabel("Choose item to change stocks amount");
-        clarificationLabel = new JLabel("(positive number adds stocks, negative � writes them off)");
         currentStockLabel = new JLabel("");
 
-        currentStockLabel.setText("Current stock qty: " + 1);
-        stocksToRemove = new JSpinner(new SpinnerNumberModel(10, 1, 1000000, 1));
+        currentStockLabel.setText("");
+        stocksToRemove = new JTextField();
 
         okButton = new JButton("Ok");
         okButton.setSize(200, 50);
@@ -83,14 +75,6 @@ public class DecreaseProductAmountMenu extends JFrame {
         this.itemsBoxLabel = itemsBoxLabel;
     }
 
-    public JLabel getClarificationLabel() {
-        return clarificationLabel;
-    }
-
-    public void setClarificationLabel(JLabel clarificationLabel) {
-        this.clarificationLabel = clarificationLabel;
-    }
-
     public JLabel getCurrentStockLabel() {
         return currentStockLabel;
     }
@@ -107,11 +91,11 @@ public class DecreaseProductAmountMenu extends JFrame {
         this.itemsBox = itemsBox;
     }
 
-    public JSpinner getStocksToRemove() {
+    public JTextField getStocksToRemove() {
         return stocksToRemove;
     }
 
-    public void setStocksToRemove(JSpinner stocksToRemove) {
+    public void setStocksToRemove(JTextField stocksToRemove) {
         this.stocksToRemove = stocksToRemove;
     }
 

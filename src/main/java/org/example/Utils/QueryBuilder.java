@@ -125,8 +125,14 @@ public class QueryBuilder {
                 }
             }
 
-            result += "WHERE " + orderField + " >= " + min + " AND "
-                      + orderField + " <= " + max;
+            if(orderField.equalsIgnoreCase("amount")) {
+                result += "WHERE " + orderField + " >= " + (int)min + " AND "
+                        + orderField + " <= " + (int)max;
+            }
+            else {
+                result += "WHERE " + orderField + " >= " + min + " AND "
+                        + orderField + " <= " + max;
+            }
         }
         else {
             result += "WHERE " + orderField + " LIKE '%";

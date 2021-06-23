@@ -16,12 +16,15 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AddProductController {
 
     private AddProductMenu addProductMenu;
 
     private static final int ADD_COMMAND = CommandTypeEncoder.PRODUCT ^ CommandTypeEncoder.CREATE;
+
+    private static final String BIG_DECIMAL_PATTERN = "-?(?:\\d+(?:\\.\\d+)?|\\.\\d+)";
 
     private List<Category> categories;
 
@@ -58,44 +61,47 @@ public class AddProductController {
         addProductMenu.getProductNameField().setText("");
         addProductMenu.getProductDescriptionField().setText("");
         addProductMenu.getProductSupplierField().setText("");
-        addProductMenu.getProductPriceField().setValue(Integer.valueOf(5));
+        addProductMenu.getProductPriceField().setText("");
     }
 
     private void accepted() {
-        Product pr = new Product();
-
-        pr.setName(addProductMenu.getProductNameField().getText());
-        pr.setDescription(addProductMenu.getProductDescriptionField().getText());
-        pr.setProducer(addProductMenu.getProductSupplierField().getText());
-
-        //check parsing 
-        pr.setPrice((Double)(addProductMenu.getProductPriceField().getValue()));
-        pr.setAmount(0);
-        Category category = (Category)(addProductMenu.getCategoriesField().getSelectedItem());
-        if(category == null) {
-            JOptionPane.showMessageDialog(null, "Choose a category!");
-        }
-        else {
-            pr.setCategoryId(category.getId());
-        }
-
-        System.out.println(pr);
-        try {
-            GlobalContext.client.sendRequest(ADD_COMMAND, ProductService.productToJson(pr));
-            Message response = GlobalContext.client.getResponse();
-            System.out.println(response);
-            if(response.getMessage().equals("ok")) {
-                JOptionPane.showMessageDialog(null, "Product accepted!");
-                GlobalContext.updateProductsCache();
+        String priceStr = addProductMenu.getProductPriceField().getText();
+        if(priceStr.matches(BIG_DECIMAL_PATTERN)) {
+            Product pr = new Product();
+            pr.setName(addProductMenu.getProductNameField().getText());
+            pr.setDescription(addProductMenu.getProductDescriptionField().getText());
+            pr.setProducer(addProductMenu.getProductSupplierField().getText());
+            pr.setPrice(new BigDecimal(priceStr));
+            pr.setAmount(0);
+            System.out.println("Product price: " + pr.getPrice());
+            Category category = (Category)(addProductMenu.getCategoriesField().getSelectedItem());
+            if(category == null) {
+                JOptionPane.showMessageDialog(null, "Choose a category!");
             }
             else {
-                JOptionPane.showMessageDialog(null, "Wrong input!");
+                pr.setCategoryId(category.getId());
             }
-            //System.out.println(GlobalContext.productCache);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            System.out.println(pr);
+            try {
+                GlobalContext.client.sendRequest(ADD_COMMAND, ProductService.productToJson(pr));
+                Message response = GlobalContext.client.getResponse();
+                System.out.println(response);
+                if(response.getMessage().equals("ok")) {
+                    JOptionPane.showMessageDialog(null, "Product accepted!");
+                    GlobalContext.updateProductsCache();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Wrong input!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Wrong input!");
         }
     }
 
