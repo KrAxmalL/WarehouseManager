@@ -27,7 +27,7 @@ public class ProductService {
             String amountStr = fields[5].replace("\"amount\":", "").trim();
             int amount = Integer.parseInt(amountStr.replaceAll("\"", ""));
             String priceStr = fields[6].replace("\"price\":", "").trim();
-            int price = Integer.parseInt(priceStr.replaceAll("\"", ""));
+            double price = Double.parseDouble(priceStr.replaceAll("\"", ""));
 
             Product res = new Product(name, description, producer, categoryId, amount, price);
             res.setId(id);

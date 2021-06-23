@@ -31,7 +31,7 @@ public class CrudProductRepository {
                 query.setString(3, product.getProducer());
                 query.setInt(4, product.getCategoryId());
                 query.setInt(5, product.getAmount());
-                query.setInt(6, product.getPrice());
+                query.setDouble(6, product.getPrice());
                 int res = query.executeUpdate();
                 query.close();
                 return true;
@@ -83,7 +83,7 @@ public class CrudProductRepository {
                     query.setString(3, product.getProducer());
                     query.setInt(4, product.getCategoryId());
                     query.setInt(5, product.getAmount());
-                    query.setInt(6, product.getPrice());
+                    query.setDouble(6, product.getPrice());
                     query.setInt(7, product.getId());
                     boolean res = (query.executeUpdate() == 1);
                     query.close();

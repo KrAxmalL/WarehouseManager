@@ -11,7 +11,7 @@ public class QueryBuilder {
                     "producer VARCHAR," +
                     "category_id INTEGER NULL," +
                     "amount INTEGER," +
-                    "price INTEGER," +
+                    "price DOUBLE," +
                     "CONSTRAINT CATEGORY_OF_PRODUCT_ID FOREIGN KEY(category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE);";
 
     public static final String INSERTING_INTO_PRODUCT = "INSERT INTO product(name, description, producer, category_id, " +
@@ -105,23 +105,23 @@ public class QueryBuilder {
         String result = "";
         if(orderField.equalsIgnoreCase("price") || orderField.equalsIgnoreCase("amount")
            || orderField.equalsIgnoreCase("category_id")) {
-            int min = 0;
-            int max = Integer.MAX_VALUE;
+            double min = 0;
+            double max = Double.MAX_VALUE;
             if((parameters.length < 2) || (parameters[0] == null) || (parameters[1] == null) ||
                     (parameters[0].trim().isEmpty()) || parameters[1].trim().isEmpty()) {
             }
             else {
                 try {
-                    min = Integer.parseInt(parameters[0].trim());
-                    max = Integer.parseInt(parameters[1].trim());
+                    min = Double.parseDouble(parameters[0].trim());
+                    max = Double.parseDouble(parameters[1].trim());
                     if(min < 0 || max < 0) {
                         min = 0;
-                        max = Integer.MAX_VALUE;
+                        max = Double.MAX_VALUE;
                     }
                 }
                 catch(NumberFormatException ex) {
                     min = 0;
-                    max = Integer.MAX_VALUE;
+                    max = Double.MAX_VALUE;
                 }
             }
 

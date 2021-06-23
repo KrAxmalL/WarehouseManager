@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Main {
+public class MainClient {
 
 	public static GlobalContext context;
 

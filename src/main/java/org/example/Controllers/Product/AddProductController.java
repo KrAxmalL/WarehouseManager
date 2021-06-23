@@ -67,9 +67,9 @@ public class AddProductController {
         pr.setName(addProductMenu.getProductNameField().getText());
         pr.setDescription(addProductMenu.getProductDescriptionField().getText());
         pr.setProducer(addProductMenu.getProductSupplierField().getText());
-        //check parsing
-        double price = (Double)(addProductMenu.getProductPriceField().getValue());
-        pr.setPrice((int) price);
+
+        //check parsing 
+        pr.setPrice((Double)(addProductMenu.getProductPriceField().getValue()));
         pr.setAmount(0);
         Category category = (Category)(addProductMenu.getCategoriesField().getSelectedItem());
         if(category == null) {

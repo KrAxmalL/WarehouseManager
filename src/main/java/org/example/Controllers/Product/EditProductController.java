@@ -73,7 +73,7 @@ public class EditProductController {
             editProductMenu.getProductNameField().setText(selectedProduct.getName());
             editProductMenu.getProductDescriptionField().setText(selectedProduct.getDescription());
             editProductMenu.getProductSupplierField().setText(selectedProduct.getProducer());
-            editProductMenu.getProductPriceField().setValue(Integer.valueOf(selectedProduct.getPrice()));
+            editProductMenu.getProductPriceField().setValue(Double.valueOf(selectedProduct.getPrice()));
             for(int i = 0; i < editProductMenu.getCategoryField().getItemCount(); i++) {
                 Category curr = editProductMenu.getCategoryField().getItemAt(i);
                 if(curr.getId() == selectedProduct.getCategoryId()) {

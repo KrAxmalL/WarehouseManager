@@ -1,4 +1,4 @@
-package org.example.Network;
+package org.example;
 
 import org.example.Databases.CrudCategoryRepository;
 import org.example.Databases.CrudProductRepository;
@@ -6,6 +6,7 @@ import org.example.Databases.CrudUserRepository;
 import org.example.Models.Category;
 import org.example.Models.Product;
 import org.example.Models.User;
+import org.example.Network.ServeTCPClient;
 import org.example.Utils.Config;
 import org.example.Utils.MyCipher;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class StoreServerTCP {
+public class MainServer {
 
     public static void main(String[] args) throws IOException {
         initCategories();
