@@ -52,6 +52,7 @@ public class AddCategoryController {
             if(response.getMessage().equals("ok")) {
                 JOptionPane.showMessageDialog(null, "Category accepted!");
                 GlobalContext.updateCategoriesCache();
+                addCategoryMenu.setVisible(false);
             }
             else {
                 JOptionPane.showMessageDialog(null, "Wrong input!");

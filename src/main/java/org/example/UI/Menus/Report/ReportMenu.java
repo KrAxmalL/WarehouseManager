@@ -7,6 +7,7 @@ public class ReportMenu extends JMenu {
     private JMenuItem allProducts;
     private JMenuItem filterProducts;
     private JMenuItem allCategories;
+    private JMenuItem statistics;
 
     public ReportMenu() {
         super("Report");
@@ -15,16 +16,14 @@ public class ReportMenu extends JMenu {
 
     private void init() {
         allProducts  = new JMenuItem("Show all products");
-        //search.addActionListener(new MainWindow.SearchItemsListener());
-
         filterProducts  = new JMenuItem("Filter products");
-
         allCategories = new JMenuItem("Show all categories");
-        //detailedReport.addActionListener(new MainWindow.DetailedReportInfo());
+        statistics = new JMenuItem("Statistics");
 
         this.add(allProducts);
         this.add(filterProducts);
         this.add(allCategories);
+        this.add(statistics);
     }
 
     public JMenuItem getAllProducts() {
@@ -49,5 +48,13 @@ public class ReportMenu extends JMenu {
 
     public void setAllCategories(JMenuItem allCategories) {
         this.allCategories = allCategories;
+    }
+
+    public JMenuItem getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(JMenuItem statistics) {
+        this.statistics = statistics;
     }
 }

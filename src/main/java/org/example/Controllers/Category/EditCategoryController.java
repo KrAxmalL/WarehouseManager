@@ -82,6 +82,7 @@ public class EditCategoryController {
                     JOptionPane.showMessageDialog(null, "Category edited successfully!");
                     GlobalContext.updateCategoriesCache();
                     GlobalContext.updateProductsCache();
+                    editCategoryMenu.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Wrong input!");
                 }

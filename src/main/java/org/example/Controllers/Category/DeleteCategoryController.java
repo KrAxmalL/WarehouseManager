@@ -60,6 +60,7 @@ public class DeleteCategoryController {
                     JOptionPane.showMessageDialog(null, "Category was successfully deleted!");
                     GlobalContext.updateCategoriesCache();
                     GlobalContext.updateProductsCache();
+                    deleteCategoryMenu.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Category wasn't deleted!");
                 }

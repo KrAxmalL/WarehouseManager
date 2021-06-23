@@ -60,6 +60,7 @@ public class DeleteProductController {
                 if (response.getMessage().equals("ok")) {
                     JOptionPane.showMessageDialog(null, "Product was successfully deleted!");
                     GlobalContext.updateProductsCache();
+                    deleteProductMenu.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Product wasn't deleted!");
                 }

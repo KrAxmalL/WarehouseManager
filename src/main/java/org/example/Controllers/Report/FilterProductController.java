@@ -126,6 +126,7 @@ public class FilterProductController {
                                 }
                             }
                             tableView.setViewportView(new ProductTable(productsToShow));
+                            filterProductMenu.setVisible(false);
                         }
                         else {
                             JOptionPane.showMessageDialog(null, "No results found!");

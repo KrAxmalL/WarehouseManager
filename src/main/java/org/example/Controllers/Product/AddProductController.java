@@ -90,6 +90,7 @@ public class AddProductController {
                 if(response.getMessage().equals("ok")) {
                     JOptionPane.showMessageDialog(null, "Product accepted!");
                     GlobalContext.updateProductsCache();
+                    addProductMenu.setVisible(false);
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Wrong input!");
