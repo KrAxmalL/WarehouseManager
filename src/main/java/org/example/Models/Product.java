@@ -101,7 +101,7 @@ public class Product {
         return id == product.id &&
                 categoryId == product.categoryId &&
                 amount == product.amount &&
-                price == product.price &&
+                Objects.equals(price, product.price) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(producer, product.producer);
