@@ -1,10 +1,8 @@
 package org.example.Controllers.Category;
 
 import org.example.Models.Category;
-import org.example.Models.Category;
 import org.example.Models.Message;
-import org.example.Models.Product;
-import org.example.Network.GlobalContext;
+import org.example.Network.Context.GlobalContext;
 import org.example.Services.CategoryService;
 import org.example.UI.Menus.Category.EditCategoryMenu;
 import org.example.Utils.CommandTypeEncoder;

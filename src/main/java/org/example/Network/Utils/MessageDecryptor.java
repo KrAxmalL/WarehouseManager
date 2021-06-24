@@ -1,4 +1,4 @@
-package org.example.Network;
+package org.example.Network.Utils;
 
 import org.example.Interfaces.Decryptor;
 import org.example.Models.Packet;

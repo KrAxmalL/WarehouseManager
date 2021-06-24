@@ -3,7 +3,7 @@ package org.example.Controllers.Report;
 import org.example.Models.Category;
 import org.example.Models.Message;
 import org.example.Models.Product;
-import org.example.Network.GlobalContext;
+import org.example.Network.Context.GlobalContext;
 import org.example.Services.ProductService;
 import org.example.UI.Menus.Product.ProductTable;
 import org.example.UI.Menus.Report.FilterProductMenu;
@@ -35,12 +35,6 @@ public class FilterProductController {
     private void initView() {
         filterProductMenu.getFilterButton().addActionListener(e -> accepted());
         filterProductMenu.getCancelButton().addActionListener(e -> cancel());
-
-        /*filterProductMenu.getNameButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
-        filterProductMenu.getProducerButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
-        filterProductMenu.getPriceButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
-        filterProductMenu.getAmountButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));
-        filterProductMenu.getCategoryButton().addActionListener(e -> showFields(((AbstractButton)e.getSource()).getText()));*/
     }
 
     public void showView() {
@@ -56,43 +50,6 @@ public class FilterProductController {
             comboBox.addItem(it.next());
         }
     }
-
-    /*private void showFields(String buttonName) {
-        if(buttonName.equals("name") || buttonName.equals("producer")) {
-            filterProductMenu.getTextLabel().setVisible(true);
-            filterProductMenu.getTextField().setVisible(true);
-            filterProductMenu.getMinNumberSpinner().setVisible(false);
-            filterProductMenu.getMinNumberLabel().setVisible(false);
-            filterProductMenu.getMaxNumberSpinner().setVisible(false);
-            filterProductMenu.getMaxNumberLabel().setVisible(false);
-            filterProductMenu.getCategoriesField().setVisible(false);
-            filterProductMenu.getCategoriesLabel().setVisible(false);
-        }
-        else if(buttonName.equals("price") || buttonName.equals("amount")) {
-            filterProductMenu.getMinNumberLabel().setVisible(true);
-            filterProductMenu.getMinNumberSpinner().setVisible(true);
-            filterProductMenu.getMaxNumberLabel().setVisible(true);
-            filterProductMenu.getMaxNumberSpinner().setVisible(true);
-            filterProductMenu.getTextField().setVisible(false);
-            filterProductMenu.getTextLabel().setVisible(false);
-            filterProductMenu.getCategoriesField().setVisible(false);
-            filterProductMenu.getCategoriesLabel().setVisible(false);
-        }
-        else if(buttonName.equals("category")) {
-            filterProductMenu.getCategoriesLabel().setVisible(true);
-            filterProductMenu.getCategoriesField().setVisible(true);
-            filterProductMenu.getMinNumberSpinner().setVisible(false);
-            filterProductMenu.getMinNumberLabel().setVisible(false);
-            filterProductMenu.getMaxNumberSpinner().setVisible(false);
-            filterProductMenu.getMaxNumberLabel().setVisible(false);
-            filterProductMenu.getCategoriesField().setVisible(false);
-            filterProductMenu.getTextField().setVisible(false);
-            filterProductMenu.getTextLabel().setVisible(false);
-        }
-        else {
-
-        }
-    }*/
 
     private void accepted() {
         int entity = CommandTypeEncoder.PRODUCT;

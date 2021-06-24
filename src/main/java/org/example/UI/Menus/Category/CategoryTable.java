@@ -1,10 +1,8 @@
 package org.example.UI.Menus.Category;
 
 import org.example.Models.Category;
-import org.example.Models.Product;
-import org.example.UI.Menus.CustomColumnModel;
-import org.example.UI.Menus.CustomDataModel;
-import org.example.UI.Menus.Product.ProductTable;
+import org.example.UI.Utils.CustomColumnModel;
+import org.example.UI.Utils.CustomDataModel;
 
 import javax.swing.*;
 

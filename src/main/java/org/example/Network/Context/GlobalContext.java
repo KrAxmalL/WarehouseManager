@@ -1,17 +1,12 @@
-package org.example.Network;
+package org.example.Network.Context;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import lombok.SneakyThrows;
-import org.example.Databases.CrudCategoryRepository;
-import org.example.Databases.CrudProductRepository;
 import org.example.Models.Category;
 import org.example.Models.Message;
 import org.example.Models.Product;
+import org.example.Network.Client.StoreClientTCP;
 import org.example.Services.CategoryService;
 import org.example.Services.ProductService;
-import org.example.UI.Menus.Product.ProductMenu;
 import org.example.Utils.CommandTypeEncoder;
 import org.example.Utils.Config;
 
@@ -48,7 +43,9 @@ public class GlobalContext {
         String data = resp.getMessage();
         String[] productsAsString = data.split("\n");
         for(int i = 0; i < productsAsString.length; i++) {
-            productCache.add(ProductService.parseProductFromJson(productsAsString[i]));
+            if(productsAsString[i]!= null && !productsAsString[i].isEmpty()) {
+                productCache.add(ProductService.parseProductFromJson(productsAsString[i]));
+            }
         }
     }
 
@@ -61,7 +58,9 @@ public class GlobalContext {
         String data = resp.getMessage();
         String[] categoriesAsString = data.split("\n");
         for(int i = 0; i < categoriesAsString.length; i++) {
-            categoryCache.add(CategoryService.parseCategoryFromJson(categoriesAsString[i]));
+            if(categoriesAsString[i]!= null && !categoriesAsString[i].isEmpty()) {
+                categoryCache.add(CategoryService.parseCategoryFromJson(categoriesAsString[i]));
+            }
         }
     }
 }

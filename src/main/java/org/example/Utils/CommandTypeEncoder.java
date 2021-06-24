@@ -4,7 +4,8 @@ public class CommandTypeEncoder {
 
     public static final int
             PRODUCT = 1,
-            CATEGORY = 2;
+            CATEGORY = 2,
+            USER = 65536;
 
     public static final int
             CREATE           = 4,
@@ -36,5 +37,9 @@ public class CommandTypeEncoder {
 
     public static boolean isCategory(int incomingCommandType) {
         return ((incomingCommandType & CATEGORY) == CATEGORY);
+    }
+
+    public static boolean isUser(int incomingCommandType) {
+        return ((incomingCommandType & USER) == USER);
     }
 }

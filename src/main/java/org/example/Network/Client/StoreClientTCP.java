@@ -1,19 +1,17 @@
-package org.example.Network;
+package org.example.Network.Client;
 
 import lombok.SneakyThrows;
-import org.example.Controllers.Main.MainController;
-import org.example.Databases.DBConnection;
+import org.example.Controllers.MainWindow.MainWindowController;
 import org.example.Interfaces.Decryptor;
 import org.example.Interfaces.Encryptor;
 import org.example.Interfaces.Processor;
 import org.example.Models.Message;
 import org.example.Models.Packet;
-import org.example.Network.MessageDecryptor;
-import org.example.Network.MessageEncryptor;
-import org.example.Network.MessageProcessor;
+import org.example.Network.Utils.MessageDecryptor;
+import org.example.Network.Utils.MessageEncryptor;
+import org.example.Network.Utils.MessageProcessor;
 import org.example.Utils.Config;
 
-import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,9 +29,10 @@ public class StoreClientTCP extends Thread {
     private Encryptor encryptor;
 
     private static volatile int clientCounter = 0;
+    private static final byte CLIENT_ID = 1;
     private int id = clientCounter++;
 
-    private MainController mainController;
+    private MainWindowController mainController;
 
     public StoreClientTCP(InetAddress address) {
         System.out.println("Making client " + id);
@@ -66,7 +65,7 @@ public class StoreClientTCP extends Thread {
 
     public void sendRequest(int command, String message) throws IOException {
         Message msg = new Message(command, id, message);
-        byte[] buffer = encryptor.encrypt(msg);
+        byte[] buffer = encryptor.encrypt(msg, CLIENT_ID);
         output.writeInt(buffer.length);
         output.write(buffer);
         System.out.println("Sended request! " + msg);

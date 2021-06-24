@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Start;
 
 import org.example.Databases.CrudCategoryRepository;
 import org.example.Databases.CrudProductRepository;
@@ -6,7 +6,7 @@ import org.example.Databases.CrudUserRepository;
 import org.example.Models.Category;
 import org.example.Models.Product;
 import org.example.Models.User;
-import org.example.Network.ServeTCPClient;
+import org.example.Network.Server.ServeTCPClient;
 import org.example.Utils.Config;
 import org.example.Utils.MyCipher;
 
@@ -18,6 +18,8 @@ import java.net.Socket;
 public class MainServer {
 
     public static void main(String[] args) throws IOException {
+
+        initUsers();
         initCategories();
         initProducts();
 
@@ -31,6 +33,18 @@ public class MainServer {
         finally {
             server.close();
         }
+    }
+
+    private static void initUsers() {
+        CrudUserRepository users = new CrudUserRepository();
+        MyCipher cipher = new MyCipher();
+        String login = "login";
+        String password = "login";
+        users.addUser(new User(login, cipher.encode(password)));
+
+        login = "user";
+        password = "user";
+        users.addUser(new User(login, cipher.encode(password)));
     }
 
     private static void initCategories() {

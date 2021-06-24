@@ -1,20 +1,20 @@
-package org.example.Network;
+package org.example.Network.Server;
 
 import org.example.Databases.CrudProductRepository;
+import org.example.Databases.CrudUserRepository;
 import org.example.Databases.DBConnection;
 import org.example.Interfaces.Decryptor;
 import org.example.Interfaces.Encryptor;
 import org.example.Interfaces.Processor;
 import org.example.Models.Message;
 import org.example.Models.Packet;
-import org.example.Models.Product;
-import org.example.Network.MessageDecryptor;
-import org.example.Network.MessageEncryptor;
-import org.example.Network.MessageProcessor;
+import org.example.Network.Utils.MessageDecryptor;
+import org.example.Network.Utils.MessageEncryptor;
+import org.example.Network.Utils.MessageProcessor;
 import org.example.Services.CategoryService;
 import org.example.Services.ProductService;
+import org.example.Services.UserService;
 import org.example.Utils.CommandTypeEncoder;
-import org.example.Utils.Config;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -34,6 +34,7 @@ public class ServeTCPClient extends Thread {
 
     private ProductService productService;
     private CategoryService categoryService;
+    private UserService userService;
 
     private static volatile int serverThreadsCounter = 0;
     private int id;
@@ -52,6 +53,8 @@ public class ServeTCPClient extends Thread {
         this.encryptor = new MessageEncryptor();
 
         productService = new ProductService();
+        categoryService = new CategoryService();
+        userService = new UserService();
 
         id = serverThreadsCounter++;
 
@@ -77,14 +80,17 @@ public class ServeTCPClient extends Thread {
         else if(CommandTypeEncoder.isCategory(command)) {
             return categoryService.processRequest(command, message.getMessage());
         }
+        else if(CommandTypeEncoder.isUser(command)) {
+            return userService.processRequest(command, message.getMessage());
+        }
         else {
             return "error";
         }
     }
 
-    private void sendResponse(String data) throws IOException {
-        Message response = new Message(-1, -1, data);
-        byte[] buffer = encryptor.encrypt(response);
+    private void sendResponse(String data, Packet received) throws IOException {
+        Message response = new Message(received.getMsg().getCType(), received.getMsg().getBUserId(), data);
+        byte[] buffer = encryptor.encrypt(response, received.getBSrc());
         output.writeInt(buffer.length);
         output.write(buffer);
     }
@@ -99,8 +105,9 @@ public class ServeTCPClient extends Thread {
                 Packet packet = getRequest();
                 String result = processPacket(packet);
                 System.out.println("Request result: " + result);
-                sendResponse(result);
-                System.out.println(new CrudProductRepository().getAll());
+                sendResponse(result, packet);
+                System.out.println(new CrudUserRepository().getAll());
+                //System.out.println(new CrudProductRepository().getAll());
             }
         } catch (IOException | SQLException e) {
             System.out.println("IO Exception on server side\n");

@@ -1,12 +1,7 @@
-package org.example.UI;
+package org.example.UI.Menus.MainWindow;
 
-import org.example.Controllers.Category.MainCategoryController;
-import org.example.Controllers.Product.MainProductController;
-import org.example.Databases.CrudProductRepository;
-import org.example.Models.Product;
 import org.example.UI.Menus.Category.CategoryMenu;
-import org.example.UI.Menus.ExitMenu;
-import org.example.UI.Menus.Product.ProductTable;
+import org.example.UI.Menus.Exit.ExitMenu;
 import org.example.UI.Menus.Product.ProductMenu;
 import org.example.UI.Menus.Report.ReportMenu;
 import org.example.UI.Menus.Stock.StockMenu;
@@ -39,7 +34,6 @@ public class MainWindow extends JFrame
         super("Warehouse Manager");
         setup();
         initComponents();
-        setVisible(true);
     }
 
     private void initComponents() {

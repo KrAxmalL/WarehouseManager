@@ -1,4 +1,4 @@
-package org.example.UI.Menus;
+package org.example.UI.Menus.Exit;
 
 import javax.swing.*;
 

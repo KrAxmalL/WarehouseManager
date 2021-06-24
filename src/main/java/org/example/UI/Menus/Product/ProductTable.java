@@ -1,12 +1,10 @@
 package org.example.UI.Menus.Product;
 
 import org.example.Models.Product;
-import org.example.UI.Menus.CustomColumnModel;
-import org.example.UI.Menus.CustomDataModel;
+import org.example.UI.Utils.CustomColumnModel;
+import org.example.UI.Utils.CustomDataModel;
 
 import javax.swing.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ProductTable extends JTable {
 

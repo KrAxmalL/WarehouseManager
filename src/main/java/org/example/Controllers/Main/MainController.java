@@ -1,44 +1,56 @@
 package org.example.Controllers.Main;
 
-import org.example.Controllers.Category.MainCategoryController;
-import org.example.Controllers.Product.MainProductController;
-import org.example.Controllers.Report.MainReportController;
-import org.example.Controllers.Stock.MainStockController;
-import org.example.Models.Category;
-import org.example.Models.Product;
-import org.example.UI.MainWindow;
-
-import java.util.List;
+import org.example.Controllers.Authorization.LoginController;
+import org.example.Controllers.Authorization.RegistrationController;
+import org.example.Controllers.MainWindow.MainWindowController;
+import org.example.Network.Context.GlobalContext;
+import org.example.UI.Menus.MainWindow.MainWindow;
+import org.example.UI.Menus.Authorization.LoginMenu;
+import org.example.UI.Menus.Authorization.RegistrationMenu;
 
 public class MainController {
 
+    private LoginController loginController;
+    private RegistrationController registrationController;
+    private MainWindowController mainWindowController;
+
+    private LoginMenu loginMenu;
+    private RegistrationMenu registrationMenu;
     private MainWindow mainWindow;
 
-    private MainProductController mainProductController;
-    private MainCategoryController mainCategoryController;
-    private MainStockController mainStockController;
-    private MainReportController mainReportController;
-
-    private List<Product> products;
-    private List<Category> categories;
+    public static GlobalContext globalContext;
 
     public MainController() {
-        mainWindow = new MainWindow();
+        globalContext = new GlobalContext();
+        initView();
         initControllers();
     }
 
+    private void initView() {
+        loginMenu = new LoginMenu();
+        registrationMenu = new RegistrationMenu();
+        mainWindow = new MainWindow();
+    }
+
     private void initControllers() {
-        mainProductController = new MainProductController(mainWindow.getProductMenu());
-        mainCategoryController = new MainCategoryController(mainWindow.getCategoryMenu());
-        mainStockController = new MainStockController(mainWindow.getStockMenu());
-        mainReportController = new MainReportController(mainWindow.getReportMenu(), mainWindow.getScrollPane());
+       loginController = new LoginController(loginMenu, this::goToMainWindow, this::goToRegistration);
+       registrationController = new RegistrationController(registrationMenu, this::goToLogin);
+       mainWindowController = new MainWindowController(mainWindow);
     }
 
-    public void showProducts() {
-
+    private void goToRegistration() {
+        loginMenu.setVisible(false);
+        registrationController.showView();
     }
 
-    public void showCategories() {
+    private void goToLogin() {
+        registrationMenu.setVisible(false);
+        loginController.showView();
+    }
 
+    private void goToMainWindow() {
+        loginMenu.setVisible(false);
+        registrationMenu.setVisible(false);
+        mainWindowController.showView();
     }
 }

@@ -2,12 +2,10 @@ package org.example.Controllers.Report;
 
 import org.example.Models.Category;
 import org.example.Models.Product;
-import org.example.Network.GlobalContext;
+import org.example.Network.Context.GlobalContext;
 import org.example.UI.Menus.Report.StatisticsMenu;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class StatisticsController {

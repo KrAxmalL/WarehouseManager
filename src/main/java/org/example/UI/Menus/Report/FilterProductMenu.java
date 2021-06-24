@@ -1,7 +1,7 @@
 package org.example.UI.Menus.Report;
 
 import org.example.Models.Category;
-import org.example.UI.MainWindow;
+import org.example.UI.Menus.MainWindow.MainWindow;
 import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;

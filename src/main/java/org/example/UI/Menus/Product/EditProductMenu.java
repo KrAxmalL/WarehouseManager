@@ -2,7 +2,7 @@ package org.example.UI.Menus.Product;
 
 import org.example.Models.Category;
 import org.example.Models.Product;
-import org.example.UI.MainWindow;
+import org.example.UI.Menus.MainWindow.MainWindow;
 import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;

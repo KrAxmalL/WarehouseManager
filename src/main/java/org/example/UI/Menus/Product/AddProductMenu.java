@@ -1,16 +1,12 @@
 package org.example.UI.Menus.Product;
 
-import org.example.Databases.CrudCategoryRepository;
 import org.example.Models.Category;
-import org.example.UI.MainWindow;
+import org.example.UI.Menus.MainWindow.MainWindow;
 import org.example.UI.Menus.Category.CategoryRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
-import java.util.Iterator;
-import java.util.List;
 
 public class AddProductMenu extends JFrame {
 

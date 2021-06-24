@@ -1,11 +1,8 @@
 package org.example.Controllers.Report;
 
-import org.example.Controllers.Product.AddProductController;
-import org.example.Controllers.Product.DeleteProductController;
-import org.example.Controllers.Product.EditProductController;
 import org.example.Models.Category;
 import org.example.Models.Product;
-import org.example.Network.GlobalContext;
+import org.example.Network.Context.GlobalContext;
 import org.example.UI.Menus.Category.CategoryTable;
 import org.example.UI.Menus.Product.*;
 import org.example.UI.Menus.Report.FilterProductMenu;

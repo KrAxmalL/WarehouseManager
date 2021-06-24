@@ -1,6 +1,6 @@
 package org.example.UI.Menus.Report;
 
-import org.example.UI.MainWindow;
+import org.example.UI.Menus.MainWindow.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;

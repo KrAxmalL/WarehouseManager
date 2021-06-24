@@ -4,5 +4,5 @@ import org.example.Models.Message;
 
 public interface Encryptor {
 
-    public byte[] encrypt(Message message);
+    public byte[] encrypt(Message message, byte clientNumber);
 }

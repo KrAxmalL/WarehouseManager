@@ -1,4 +1,4 @@
-package org.example.UI.Menus;
+package org.example.UI.Utils;
 
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;

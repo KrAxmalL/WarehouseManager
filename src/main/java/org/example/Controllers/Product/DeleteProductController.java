@@ -1,12 +1,9 @@
 package org.example.Controllers.Product;
 
-import org.example.Models.Category;
 import org.example.Models.Message;
 import org.example.Models.Product;
-import org.example.Network.GlobalContext;
-import org.example.Services.ProductService;
+import org.example.Network.Context.GlobalContext;
 import org.example.UI.Menus.Product.DeleteProductMenu;
-import org.example.UI.Menus.Product.EditProductMenu;
 import org.example.Utils.CommandTypeEncoder;
 
 import javax.swing.*;

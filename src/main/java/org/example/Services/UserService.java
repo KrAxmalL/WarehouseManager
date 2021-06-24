@@ -1,44 +1,113 @@
 package org.example.Services;
 
 import org.example.Databases.CrudUserRepository;
+import org.example.Models.Category;
+import org.example.Models.Product;
 import org.example.Models.User;
+import org.example.Utils.CommandTypeEncoder;
 import org.example.Utils.MyCipher;
+
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
 
 public class UserService {
 
     private static CrudUserRepository users = new CrudUserRepository();
+    private static MyCipher cipher = new MyCipher();
 
     public static User parseUserFromJson(String input) throws Exception {
-        String[] result = new String[2];
+        String[] fields = input.replaceAll("[{}]", "").trim().split(",");
+        if(fields.length == 3) {
+            String idStr = fields[0].replace("\"id\":", "").trim();
+            int id = Integer.parseInt(idStr.replaceAll("\"", ""));
 
-        input = input.replaceAll("[{}]", "").trim();
-        String[] splitted = input.split(",");
+            String login = fields[1].replace("\"login\":",  "").replaceAll("\"", "").trim();
+            String password = fields[2].replace("\"password\":", "").replaceAll("\"", "").trim();
 
-        result[0] = splitted[0].replace("\"login\":", "").trim();
-        result[0] = result[0].substring(1, result[0].length() - 1);
-
-        result[1] = splitted[1].replace("\"password\":", "").trim();
-        result[1] = result[1].substring(1, result[1].length() - 1);
-
-        if(result[0] == null || result[0].isEmpty()) {
-            throw new Exception("Invalid login!");
+            User user = new User(login, password);
+            user.setId(id);
+            System.out.println("Parsed user: " + user);
+            return user;
         }
-        if(result[1] == null || result[1].isEmpty()) {
-            throw new Exception("Invalid password!");
+        else {
+            throw new Exception("Invalid json of user");
         }
-
-        MyCipher cipher = new MyCipher();
-        User user = new User(result[0], cipher.encode(result[1]));
-        return user;
     }
 
-    public static boolean validateUser(User user) {
-        if(user != null) {
+    public static String userToJson(User user) {
+        return "{" +
+                "\"id\": " + user.getId() + ',' +
+                "\"login\": " + '"' + user.getLogin() + '"' + ',' +
+                "\"password\": " + '"' + user.getPassword() + '"' +
+                '}';
+    }
+
+    public static String processRequest(int command, String data) {
+        if((command & CommandTypeEncoder.CREATE) == CommandTypeEncoder.CREATE) {
+            try {
+                User toRegister = parseUserFromJson(data);
+                if(registerUser(toRegister)) {
+                    return "ok";
+                }
+                return "error";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "error";
+            }
+        }
+        else if((command & CommandTypeEncoder.READ) == CommandTypeEncoder.READ) {
+            try {
+                User toLogin = parseUserFromJson(data);
+                if(loginUser(toLogin)) {
+                    return "ok";
+                }
+                return "error";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "error";
+            }
+        }
+        else {
+            return "error";
+        }
+    }
+
+    public static boolean registerUser(User user) {
+        boolean validUser = validateUser(user);
+        if(validUser) {
+            user.setPassword(cipher.encode(user.getPassword()));
+            User dbUser = users.getUserByLogin(user.getLogin());
+            if (dbUser == null) {
+                return users.addUser(user);
+            }
+        }
+        return false;
+    }
+
+    public static boolean loginUser(User user) {
+        boolean validUser = validateUser(user);
+        if(validUser) {
+            user.setPassword(cipher.encode(user.getPassword()));
             User dbUser = users.getUserByLogin(user.getLogin());
             if (dbUser != null) {
                 return user.getPassword().equals(dbUser.getPassword());
             }
         }
         return false;
+    }
+
+    public static boolean validateUser(User user) {
+        if(user == null) {
+            return false;
+        }
+        if(user.getLogin() == null || user.getLogin().isEmpty()) {
+            return false;
+        }
+        if(user.getPassword() == null || user.getPassword().isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 }

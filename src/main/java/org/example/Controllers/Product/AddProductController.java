@@ -1,12 +1,9 @@
 package org.example.Controllers.Product;
 
-import org.example.Databases.CrudCategoryRepository;
-import org.example.Databases.CrudProductRepository;
 import org.example.Models.Category;
 import org.example.Models.Message;
-import org.example.Models.Packet;
 import org.example.Models.Product;
-import org.example.Network.GlobalContext;
+import org.example.Network.Context.GlobalContext;
 import org.example.Services.ProductService;
 import org.example.UI.Menus.Product.AddProductMenu;
 import org.example.Utils.CommandTypeEncoder;
@@ -16,7 +13,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class AddProductController {
 
