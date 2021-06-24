@@ -13,11 +13,6 @@ public class Config {
 
     public static final int THREAD_NUMBER = 4;
 
-    public static final String TEST_LOGIN = "testLogin";
-    public static final String TEST_PASSWORD = "testPass";
-
     public static final int MAIN_WIDTH = 800;
     public static final int MAIN_HEIGHT = 600;
-
-    public static final int BUFFER_SIZE = 2048;
 }
